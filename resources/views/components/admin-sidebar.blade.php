@@ -22,46 +22,102 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                <li class="nav-header">
+                    Dashboard
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <p>Search books</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-book-reader nav-icon"></i>
+                        <p>Search member</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">
+                    Books
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('book.index') }}" class="nav-link">
+                        <i class="fas fa-swatchbook nav-icon"></i>
+                        <p>All books</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('book.create') }}" class="nav-link">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                        <p>Add new book</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">
+                    Admin
+                </li>
                 <li class="nav-item menu-close">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <i class="nav-icon fas fa-cogs"></i>
                         <p>
-                            Students
+                            Setting
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fas fa-clipboard-list nav-icon"></i>
-                                <p>All students</p>
+                            <a href="{{ route('category.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-plus"></i>
+                                <p>add category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fas fa-user-plus nav-icon"></i>
-                                <p>Register new</p>
+                            <a href="{{ route('author.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>add author</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('memberstatus.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>member status</p>
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('reservationstatus.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-address-book"></i>
+                                <p>reservation status</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
+                <li class="nav-header">
+                    Manage
+                </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-money-check-alt nav-icon"></i>
-                        <p>Payment</p>
+                    <a href="{{ route('reservation.index') }}" class="nav-link">
+                        <i class="fas fa-address-book nav-icon"></i>
+                        <p>All reservations</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('due.index') }}" class="nav-link">
+                        <i class="fas fa-times-circle nav-icon"></i>
+                        <p>Due list</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="" class="nav-link">
-                        <i class="fas fa-cogs nav-icon"></i>
-                        <p>Setting</p>
+                        <i class="fas fa-credit-card nav-icon"></i>
+                        <p>Fine Payment</p>
                     </a>
                 </li>
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
