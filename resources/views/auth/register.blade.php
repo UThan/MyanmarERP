@@ -1,6 +1,12 @@
 <x-admin-layout class="register-page">
     @push('style')
         <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <style>
+            .register-page {
+                background-image: url('/img/admin/background.jpg');
+            }
+
+        </style>
     @endpush
 
     <div class="register-box">
@@ -14,13 +20,13 @@
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Your name" name="name">
+                        <input type="text" class="form-control" placeholder="Username" name="username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
-                        @error('name')
+                        @error('username')
                             <x-form-error>{{ $message }}</x-form-error>
                         @enderror
                     </div>

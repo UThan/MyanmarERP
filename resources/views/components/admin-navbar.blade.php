@@ -80,7 +80,7 @@
         <!-- User Logout -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
+                <i class="fas fa-user mr-2"></i> {{ Auth::user()->username }}
             </a>
 
             <form method="POST" action="{{ route('logout') }}">

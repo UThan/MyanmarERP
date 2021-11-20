@@ -1,9 +1,16 @@
 <?php
 
+use App\Http\Livewire\Book\Addbook;
+use App\Http\Livewire\Member\AllMember;
+use App\Http\Livewire\Member\Addmember;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\RecordController;
-use App\Http\Controllers\SettingController;
+use App\Http\Livewire\Book\Booklist;
+use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\Manage\Borrowbook;
+use App\Http\Livewire\Manage\Borrowlist;
+use App\Http\Livewire\Setting\BookSetting;
+use App\Http\Livewire\Setting\MemberSetting;
+use App\Http\Livewire\Test;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,31 +23,27 @@ use App\Http\Controllers\SettingController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-    return view('admin/dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::redirect('/', '/home');
+
+
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('book', BookController::class);
+    Route::get('/home', Dashboard::class)->name('home');
 
-    Route::get('author/create', [SettingController::class, 'createAuthor'])->name('author.create');
-    Route::post('author', [SettingController::class, 'storeAuthor']);
+    Route::get('book', Booklist::class)->name('book');
+    Route::get('book/add', Addbook::class)->name('addbook');
 
-    Route::get('category/create', [SettingController::class, 'createCategory'])->name('category.create');
-    Route::post('category', [SettingController::class, 'storeCategory']);
+    Route::get('member', AllMember::class)->name('member');;
+    Route::get('member/add', Addmember::class)->name('addmember');;
 
-    Route::get('memberstatus/create', [SettingController::class, 'createMemberStatus'])->name('memberstatus.create');
-    Route::post('memberstatus', [SettingController::class, 'storeMemberStatus']);
+    Route::get('setting/book', BookSetting::class)->name('booksetting');
+    Route::get('setting/member', MemberSetting::class)->name('membersetting');
 
-    Route::get('reservationstatus/create', [SettingController::class, 'createReservationStatus'])->name('reservationstatus.create');
-    Route::post('reservationstatus', [SettingController::class, 'storeReservationStatus']);
+    Route::get('manage/borrow', Borrowbook::class)->name('borrowbook');
+    Route::get('manage/borrow/list', Borrowlist::class)->name('borrowlist');
 
-    Route::get('reservation/', [RecordController::class, 'allReservation'])->name('reservation.index');
-    Route::get('due/', [RecordController::class, 'allDue'])->name('due.index');
+    Route::get('test', Test::class)->name('test');
 });
 
 require __DIR__ . '/auth.php';

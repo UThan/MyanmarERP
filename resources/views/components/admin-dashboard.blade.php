@@ -12,12 +12,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">{{ $title ?? 'Dashboard' }}</h1>
+                            <h1 class="m-0">Dashboard</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item active">{{ $title }}</li>
+                                <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -28,9 +28,6 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-
-                    {{ $slot }}
-
                     <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
@@ -51,7 +48,6 @@
 
         </div>
         <!-- ./wrapper -->
-
     </div>
     <x-admin-footer />
 </x-admin-layout>

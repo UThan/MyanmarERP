@@ -1,16 +1,22 @@
-<div class="modal fade" id="city_modal">
-    <div class="modal-dialog">
+<div class="modal fade show" id="{{ $id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ $title ?? 'Modal' }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {{ $slot }}
+            @isset($header)
+                <div class="modal-header">
+                    {!! $header !!}
+                </div>
+            @endisset
+            @isset($body)
+                <div class="modal-body">
+                    {!! $body !!}
+                </div>
+            @endisset
+            @isset($footer)
+                <div class="modal-footer">
+                    {!! $footer !!}
+                </div>
+            @endisset
+            {!! $slot !!}
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->

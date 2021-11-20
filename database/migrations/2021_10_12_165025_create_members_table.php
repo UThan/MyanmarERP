@@ -16,8 +16,10 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->date('joined_date', 50);
-            $table->foreignId('active_status_id');
+            $table->string('email', 20);
+            $table->integer('phone_no');
+            $table->date('joined_date');
+            $table->foreignId('member_status_id');
             $table->timestamps();
         });
     }
