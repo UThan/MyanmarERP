@@ -46,7 +46,7 @@ class Addmember extends Component
         $member->joined_date = date("Y-m-d");
         $member->member_status_id = 1;  //active
         $member->save();
-        session()->flash('success', 'Successfully created');
+        session()->flash('success', 'New member successfully created');
         return redirect()->to('/member');
     }
 

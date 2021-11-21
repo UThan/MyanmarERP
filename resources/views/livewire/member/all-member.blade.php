@@ -1,27 +1,34 @@
 <x-slot name="title">
-    <x-admin-title />
+    <x-admin-title title='Member List' :dirs="['home' => 'home', 'member' => 'member']" />
 </x-slot>
 
 
 <div class="row">
     <div class="col">
-        <a href="#" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalAddMember">Add member <i
+        <x-alert />
+        <a href="{{route('addmember')}}" class="btn btn-primary mb-2">New <i
                 class="fa fa-plus ml-2" aria-hidden="true"></i></a>
 
-        <x-modal id="modalAddMember">
-            @livewire('member.addmember')
+        
+
+        <x-modal id="modalEditMember">
+            @livewire('member.editmember')
         </x-modal>
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title mb-0">All members</h3>
-
-                <div class="card-tools">
-
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input wire:model='search' type="text" name="title" class="form-control float-right"
-                            placeholder="Search">
+                <div class="row">
+                    <div class="col-lg-2 col-md-4">
+                        <x-form.select name="search.classrooms" label="Classroom" :options='$classrooms' />
                     </div>
-
+                    <div class="col-lg-2 col-md-4">
+                        <x-form.select name="search.hostels" label="Hostel" :options='$hostels' />
+                    </div>
+                    <div class="col-lg-2 col-md-4">
+                        <x-form.select name="search.status" label="Member status" :options='$status' />
+                    </div>
+                    <div class="col-lg-4 col-md-6 offset-2">
+                        <x-form.input type='search' label="Search" name="search.member" placeholder="Search ..." />
+                    </div>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -46,9 +53,10 @@
                                     <td>{{ $member->member_status->name }}</td>
                                     <th>
 
-                                        <button type="submit" class="btn btn-sm btn-danger"><i
-                                                class="fa fa-trash"></i></button>
-                                        <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                        <a href="#" wire:click.prevent='deleteMember({{ $member->id }})'
+                                            class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="#" wire:click.prevent='editMember({{ $member->id }})'
+                                            class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
 
                                     </th>
                                 </tr>

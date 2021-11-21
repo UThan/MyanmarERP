@@ -1,28 +1,55 @@
-<div>
-    <form wire:submit.prevent='submit'>
-        <div class="modal-header">
-            <h5 class="modal-title">Register new member</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
+<x-slot name="title">
+    <x-admin-title title='Member List' :dirs="['home' => 'home', 'member' => 'member', 'new' => 'addmember']" />
+</x-slot>
 
-            <x-form.input name='field.name' label='Name' aria-placeholder="Enter member name" />
-            <x-form.input type='email' name='field.email' label='Email' aria-placeholder="Enter email" />
-            <x-form.input type='tel' name='field.phone_no' label='Phone number' aria-placeholder="Enter phone number" />
-            <a href="#" class="btn btn-secondary btn-sm"
-                wire:click.prevent="$toggle('showhostel')">{{ $showhostel ? 'Hide' : 'More +' }}</a>
 
-            @if ($showhostel)
-                <hr>
-                <x-form.select name='field.hostel' label='Hostel' aria-placeholder="Enter hostel name" />
-                <x-form.select name='field.classroom' label='Classroom' aria-placeholder="Enter classroom" />
-            @endif
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Create</button>
-        </div>
-    </form>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <x-alert />
+                
+        <form wire:submit.prevent='submit'>
+            <div class="card">               
+                <div class="card-body">
+        
+                    <div class="form-row">
+                        <div class="col">
+                            <x-form.input name='field.name' label='Name' aria-placeholder="Enter member name" />
+                        </div>
+                        <div class="col">
+                            <x-form.input type='email' name='field.email' label='Email' aria-placeholder="Enter email" />
+                        </div>
+                    </div>
+                   
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <x-form.input type='tel' name='field.phone_no' label='Phone number' aria-placeholder="Enter phone number" />
+                        </div>
+                    </div>
+                   
+                   
+                    <a href="#"
+                        wire:click.prevent="$toggle('showhostel')">{{ $showhostel ? 'Hide' : 'More +' }}</a>
+        
+                    @if ($showhostel)
+                        <hr>
+                       <div class="form-row">
+                           <div class="col">
+                            <x-form.select name='field.hostel' label='Hostel' aria-placeholder="Enter hostel name" />
+                           </div>
+                           <div class="col">                               
+                            <x-form.select name='field.classroom' label='Classroom' aria-placeholder="Enter classroom" />
+                           </div>
+                       </div>
+                    @endif
+        
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </form>
+            
+    </div>
 </div>
+
+   

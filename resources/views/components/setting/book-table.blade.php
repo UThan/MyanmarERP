@@ -45,9 +45,13 @@
                                 <a href=""><i class="fa fa-edit text-warning"></i></a>
 
                                 @if ($table->books_count == 0)
-                                    <a href="" class="ml-2"><i class="fa fa-trash text-danger"></i></a>
+                                    <a href="#" class="ml-2"
+                                        wire:click.prevent='delete{{ $name }}({{ $table->id }})'><i
+                                            class="fa fa-trash text-danger"></i></a>
                                 @else
-                                    <a href="" class="ml-2"><i class="fa fa-trash text-light"></i></a>
+                                    <a href="#" class="ml-2"
+                                        wire:click.prevent='edit{{ $name }}({{ $table->id }})'><i
+                                            class="fa fa-trash text-light"></i></a>
                                 @endif
                             </td>
                         </tr>

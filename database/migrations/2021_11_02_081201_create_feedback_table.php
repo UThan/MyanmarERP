@@ -15,8 +15,8 @@ class CreateFeedbackTable extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->enum('satisfactory', [1, 2, 3]);
-            $table->enum('difficulty', [1, 2, 3]);
+            $table->enum('satisfactory', [1, 2, 3]);  //like ok dontlike
+            $table->enum('difficulty', [1, 2, 3]);  //easy normal hard
             $table->timestamps();
         });
     }

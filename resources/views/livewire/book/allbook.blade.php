@@ -1,11 +1,14 @@
 <x-slot name="title">
-    <x-admin-title />
+    <x-admin-title title='Books' :dirs="['home' => 'home', 'book' => 'book']" />
 </x-slot>
 
 <div>
     <x-alert />
     <a href="#" class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalImport">Import <i
-            class="fa fa-upload ml-2" aria-hidden="true"></i></a>
+            class="fa fa-file-import ml-2" aria-hidden="true"></i></a>
+
+    <a href="#" class="btn btn-secondary mb-2" wire:click.prevent='export'>Export <i class="fa fa-file-export ml-2"
+            aria-hidden="true"></i></a>
 
     <x-modal id="modalImport">
         @livewire('importbook')
@@ -42,24 +45,36 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Book no</th>
                             <th>Title</th>
-                            <th>Series</th>
-                            <th>Setting</th>
                             <th>Level</th>
+                            <th>Book no</th>
+                            <th>Story Location</th>
+                            <th>Genre</th>
+                            <th>Page</th>
+                            <th>Author</th>
+                            <th>Series</th>
                             <th>Total</th>
-                            <th>Available</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($books as $book)
                             <tr>
-                                <td>{{ $book->book_no }}</td>
                                 <td>{{ $book->title }}</td>
-                                <td>{{ $book->series->name }}</td>
-                                <td>{{ $book->setting->name }}</td>
                                 <td>{{ $book->level->name }}</td>
+                                <td>{{ $book->book_no }}</td>
+                                <td>{{ $book->setting->name }}</td>
+                                <td>
+                                    @foreach ($book->genres as $genre)
+                                        {{ $genre->name }}
+                                    @endforeach
+                                </td>
+                                <td>{{ $book->pages}}</td>
+                                <td>
+                                    @foreach ($book->authors as $author)
+                                        {{ $author->name }}
+                                    @endforeach
+                                </td>
                                 <th>{{ $book->copies_owned }}</th>
                                 <th><span class="badge badge-success">{{ $book->copies_left }}</span>
                                 </th>

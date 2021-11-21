@@ -1,9 +1,9 @@
 <x-slot name="title">
-    <x-admin-title />
+    <x-admin-title title='Borrow List' :dirs="['home' => 'home', 'borrowlist' => 'borrowlist']"/>
 </x-slot>
 
 <x-alert />
-<button class="btn btn-primary" wire:click="confirmDelete">Delete</button>
+
 <div class="card card-dark">
     <div class="card-header">
         <h3 class="card-title mb-0">Reservation List</h3>
@@ -28,15 +28,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($reservations as $reservation)
+                @foreach ($borrowlists as $borrowlist)
                     <tr>
-                        <td>{{ $reservation->id }}</td>
-                        <td>{{ $reservation->member->name }}</td>
-                        <td>{{ $reservation->book->title }}</td>
-                        <td>{{ $reservation->date }}</td>
-                        <td>{{ $reservation->status }}</td>
+                        <td>{{ $borrowlist->id }}</td>
+                        <td>{{ $borrowlist->member->name }}</td>
+                        <td>{{ $borrowlist->book->title }}</td>
+                        <td>{{ $borrowlist->rent_date }}</td>
+                        <td>{{ $borrowlist->rent_status->name }}</td>
                         <th>
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-sm btn-danger" wire:click='confirm({{$borrowlist->id}})'><i class="fa fa-trash"></i></button>
                             <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                         </th>
                     </tr>
@@ -46,9 +46,9 @@
     </div>
     <!-- /.card-body -->
 
-    @if ($reservations->hasPages())
+    @if ($borrowlists->hasPages())
         <div class="card-footer">
-            {{ $reservations->links() }}
+            {{ $borrowlists->links() }}
         </div>
     @endif
 </div>

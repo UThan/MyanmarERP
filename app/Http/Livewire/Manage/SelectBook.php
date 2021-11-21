@@ -1,50 +1,26 @@
 <?php
 
-namespace App\Http\Livewire\Book;
+namespace App\Http\Livewire\Manage;
 
 use App\Helper\Helper;
 use App\Helper\WithModals;
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Book;
-use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Level;
+use App\Models\Setting;
+use Livewire\Component;
 
-class Booklist extends Component
+class SelectBook extends Component
 {
     use WithModals;
-    use WithPagination;
-
-
-    protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['onDelete'];
-    public $record = [
-        5 => '5 records',
-        10 => '10 records',
-        25 => '25 records',
-        50 => '50 records',
-    ];
-
     public $search = [
         'category' => '',
         'setting' => '',
         'level' => '',
         'book' => '',
-        'showonly' => '10',
     ];
 
-    public function updatedSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function onDelete($id)
-    {
-        $book = Book::find($id);
-        $book->delete();
-        session()->flash('success', 'successfully deleted');
-    }
+    public $select = [];
 
 
     public function render()
@@ -60,18 +36,17 @@ class Booklist extends Component
             $query->where('category_id', $this->search['category']);
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
-        })->paginate($this->search['showonly']);
-        return view('livewire.book.booklist', compact('categories', 'settings', 'levels', 'books'));
+        })->take(5)->get();
+        return view('livewire.manage.select-book', compact('categories', 'settings', 'levels', 'books'));
     }
 
-    public function edit($id)
+    public function bookSelected()
     {
-        $this->emit('showEdit', $id);
-        $this->openModal('modalEdit');
+       $this->emit('bookSelected',$this->select);
     }
 
-    public function delete($id)
+    public function clearMember()
     {
-        $this->confirmDelete($id);
+        $this->emit('clearMember');
     }
 }

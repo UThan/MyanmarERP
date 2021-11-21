@@ -1,5 +1,5 @@
 <x-slot name="title">
-    <x-admin-title />
+    <x-admin-title title='Book Setting' :dirs="['home' => 'home', 'booksetting' => 'booksetting']" />
 </x-slot>
 
 <div>

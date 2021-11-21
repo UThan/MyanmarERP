@@ -12,16 +12,17 @@ class Borrowlist extends Component
     protected $listeners = ['onDelete'];
     public function render()
     {
-        $reservations = RentList::paginate(10);
-        return view('livewire.manage.borrowlist', compact('reservations'));
+        $borrowlists = RentList::paginate(10);
+        return view('livewire.manage.borrowlist', compact('borrowlists'));
     }
 
-    public function confirm()
+    public function confirm($id)
     {
-        $this->confirmDelete();
+        $this->confirmDelete($id);
     }
 
-    public function onDelete()
+    public function onDelete($id)
     {
+        RentList::destroy($id);
     }
 }

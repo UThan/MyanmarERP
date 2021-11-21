@@ -4,11 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\Level;
-use App\Models\Series;
-use App\Models\Setting;
-use App\Models\Author;
+use App\Models\Feedback;
 use App\Models\MemberStatus;
+use App\Models\RentStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
@@ -32,6 +30,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Deactived'],
             ['name' => 'Unverified'],
         ))->create();
+        $rentstatus = RentStatus::factory()->count(3)->state(new Sequence(
+            ['name' => 'Rented'],
+            ['name' => 'Dued'],
+            ['name' => 'Returned'],
+        ))->create();
+
         // $level = Level::factory()->create();
         // $setting = Setting::factory()->create();
         // $series = Series::factory()->create();

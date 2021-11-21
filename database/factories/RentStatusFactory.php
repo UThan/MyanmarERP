@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Member;
+use App\Models\RentStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class MemberFactory extends Factory
+class RentStatusFactory extends Factory
 {
-    /**
+   /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Member::class;
+    protected $model = RentStatus::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +23,6 @@ class MemberFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->safeEmail(),
-            'phone_no' => $this->faker->phoneNumber(),
-            'joined_date' => $this->faker->date(),
-            'member_status_id' => 1,
         ];
     }
 }

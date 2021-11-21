@@ -18,67 +18,66 @@ class Editbook extends Component
     public $listeners = ['showEdit' => 'bindData'];
     public $validationAttributes =  [
         'field.title' => 'title',
-        'field.author' => 'author',
+        'field.author_id' => 'author_id',
         'field.copies_owned' => 'book copies',
         'field.pages' => 'pages',
         'field.book_no' => 'book number',
-        'field.genre' => 'genre',
-        'field.category' => 'category',
-        'field.level' => 'level',
-        'field.setting' => 'setting',
+        'field.genre_id' => 'genre_id',
+        'field.category_id' => 'category_id',
+        'field.level_id' => '',
+        'field.setting_id' => 'setting_id',
         'field.serires' => 'serires',
     ];
 
-
-
     public $field = [
         'title' => '',
-        'author' => [],
+        'author_id' => [],
         'copies_owned' => '',
         'pages' => '',
         'book_no' => '',
-        'genre' => [],
-        'category' => '',
-        'level' => '',
-        'setting' => '',
-        'series' => '',
+        'genre_id' => [],
+        'category_id' => '',
+        'level_id' => '',
+        'setting_id' => '',
+        'series_id' => '',
     ];
 
     public $rules = [
         'field.title' => 'required:unique:Book',
-        'field.author' => 'required',
+        'field.author_id' => 'required',
         'field.copies_owned' => 'required|integer|min:1',
         'field.pages' => 'required|integer|min:1',
         'field.book_no' => 'required|integer|min:1',
-        'field.genre' => 'required',
-        'field.category' => 'required',
-        'book.level_id' => 'required',
-        'field.setting' => 'required',
-        'field.series' => 'required',
+        'field.genre_id' => 'required',
+        'field.category_id' => 'required',
+        'field.level_id' => 'required',
+        'field.setting_id' => 'required',
+        'field.series_id' => 'required',
     ];
 
     public function updated($field)
     {
         $this->validateOnly($field);
+
     }
 
     public function bindData($id)
     {
         $book = Book::find($id);
         $this->field['title'] = $book->title;
-        $this->field['author'] = $book->authors->mapWithKeys(function ($item) {
+        $this->field['author_id'] = $book->authors->mapWithKeys(function ($item) {
             return [$item['id']];
         })->all();
         $this->field['copies_owned'] = $book->copies_owned;
         $this->field['pages'] = $book->pages;
         $this->field['book_no'] = $book->book_no;
-        $this->field['category'] = $book->category->id;
-        $this->field['genre'] = $book->genres->mapWithKeys(function ($item, $key) {
+        $this->field['category_id'] = $book->category->id;
+        $this->field['genre_id'] = $book->genres->mapWithKeys(function ($item, $key) {
             return [$item['id']];
         })->all();
-        $this->field['level'] = $book->level->id;
-        $this->field['setting'] = $book->setting->id;
-        $this->field['series'] = $book->series->id;
+        $this->field['level_id'] = $book->level->id;       
+        $this->field['setting_id'] = $book->setting->id;
+        $this->field['series_id'] = $book->series->id;
     }
 
     public function render()
@@ -93,7 +92,7 @@ class Editbook extends Component
     }
 
     public function submit()
-    {
+    {        
         session()->flash('success', 'Successfully updated');
         return redirect()->to('/book');
     }

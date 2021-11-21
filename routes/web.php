@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Livewire\Book\Addbook;
+use App\Http\Livewire\Book\Allbook;
 use App\Http\Livewire\Member\AllMember;
 use App\Http\Livewire\Member\Addmember;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Book\Booklist;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Manage\Borrowbook;
 use App\Http\Livewire\Manage\Borrowlist;
@@ -25,13 +25,13 @@ use App\Http\Livewire\Test;
 
 
 Route::redirect('/', '/home');
-
+Route::redirect('/dashboard', '/home');
 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', Dashboard::class)->name('home');
 
-    Route::get('book', Booklist::class)->name('book');
+    Route::get('book', Allbook::class)->name('book');
     Route::get('book/add', Addbook::class)->name('addbook');
 
     Route::get('member', AllMember::class)->name('member');;

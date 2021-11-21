@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Setting;
 
+use App\Helper\WithModals;
 use App\Models\Series;
 use App\Models\Setting;
 use App\Models\Genre;
@@ -12,7 +13,9 @@ use Livewire\WithPagination;
 class BookSetting extends Component
 {
     use WithPagination;
+    use WithModals;
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['onDelete'];
 
 
     public function render()
@@ -23,5 +26,15 @@ class BookSetting extends Component
         $series = Series::select('id', 'name')->withCount('books')->paginate(5, ['*'], 'menu');
 
         return view('livewire.setting.book-setting', compact('settings', 'authors', 'genres', 'series'));
+    }
+
+
+    public function deleteAuthor($id)
+    {
+        $this->confirmDelete($id);
+    }
+
+    public function onDelete($id)
+    {
     }
 }

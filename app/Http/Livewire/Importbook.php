@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Helper\Csv;
 use App\Helper\WithModals;
 use App\Models\Author;
 use App\Models\Book;
@@ -10,9 +9,12 @@ use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
 use App\Models\Setting;
+use App\Imports\BooksImport;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Maatwebsite\Excel\HeadingRowImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Importbook extends Component
 {
@@ -21,75 +23,25 @@ class Importbook extends Component
 
     public $upload;
     public $text = 'Series';
-    public $field = [
-        'level' => '',
-        'no' => '',
-        'series' => '',
-        'title' => '',
-        'author' => '',
-        'genre' => '',
-        'setting' => '',
-        'pages' => '',
-        'total' => '',
-        'category' => ''
-    ];
-
     public $columns;
     private $totalSaved = 0;
 
-    protected $rules = [
-        'field.level' => 'required',
-        'field.no' => 'required',
-        'field.series' => 'required',
-        'field.title' => 'required',
-        'field.author' => 'required',
-        'field.genre' => 'required',
-        'field.setting' => 'required',
-        'field.pages' => 'required',
-        'field.total' => 'required',
-        'field.category' => 'required',
-    ];
-
-    protected $validationAttributes  = [
-        'field.level' => 'level',
-        'field.no' => 'no',
-        'field.series' => 'series',
-        'field.title' => 'title',
-        'field.author' => 'author',
-        'field.genre' => 'genre',
-        'field.setting' => 'setting',
-        'field.pages' => 'pages',
-        'field.total' => 'total',
-        'field.category' => 'category',
-    ];
 
     public function updatingUpload($value)
     {
         Validator::make(
             ['upload' => $value],
-            ['upload' => 'required|mimes:txt,csv']
+            ['upload' => 'required|mimes:xlsx,csv']
         )->validate();
     }
 
-
-
     public function import()
-    {
-        $this->validate();
-        Csv::from($this->upload)->eachRow(function ($row) {
-            if ($this->extractFieldsFromRow($row)->filter()->isEmpty()) return;   //Skip if the row is empty
-            $book =  $this->extractFieldsFromRow($row);
-            $this->saveRecord($book);
-        });
+    {  
+        Excel::import(new BooksImport, $this->upload);
         session()->flash('success', $this->totalSaved . ' record successfully added');
         return redirect()->to('/book');
     }
 
-    public function updatedUpload()
-    {
-        $this->columns = Csv::from($this->upload)->columns();
-        $this->guessField();
-    }
 
     public function render()
     {
@@ -99,10 +51,9 @@ class Importbook extends Component
     public function extractFieldsFromRow($row)
     {
         $attributes = collect($this->field)->except(['category'])
-            ->mapWithKeys(function ($heading, $field) use ($row) {
-                return [$field => $row[$heading]];
+            ->mapWithKeys(function ($value, $key) use ($row) {  // 'level' => 2  
+                return [$key => $row[$value]];                  //'level' => row['2'] 
             });
-
         return $attributes;
     }
 
@@ -150,6 +101,7 @@ class Importbook extends Component
             ]);
         }
 
+
         $savebook = Book::where('title', '=', $book->get('title'))->first();
         if (!$savebook) {
             $savebook = new Book;
@@ -160,11 +112,9 @@ class Importbook extends Component
             $savebook->copies_owned = $book->get('total');
             $savebook->copies_left = $book->get('total');
             $savebook->copies_lost = 0;
-
             $savebook->level()->associate($level);
             $savebook->series()->associate($series);
             $savebook->setting()->associate($setting);
-
             $savebook->save();
         }
 
@@ -176,7 +126,9 @@ class Importbook extends Component
                     'name' => $book->get('author')
                 ]);
             }
-            $savebook->authors()->attach($author->id);
+            if (!$savebook->authors->contains($author->id)) {
+                $savebook->authors()->attach($author->id);
+            }
         }
 
         $genres = collect(explode(",", $book->get('genre')));
@@ -187,7 +139,9 @@ class Importbook extends Component
                     'name' => $book->get('genre')
                 ]);
             }
-            $savebook->genres()->attach($genre->id);
+            if (!$savebook->genres->contains($genre->id)) {
+                $savebook->genres()->attach($genre->id);
+            }
         }
 
 

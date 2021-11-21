@@ -19,7 +19,6 @@ class CreateRentListsTable extends Migration
             $table->id();
             $table->foreignId('book_id');
             $table->foreignId('member_id');
-            $table->integer('copy_no');
             $table->date('reservation_date')->nullable();
             $table->date('rent_date')->nullable();;
             $table->date('return_date')->nullable();
