@@ -41,18 +41,21 @@
                             <td>
                                 <span class="badge bg-secondary">{{ $table->books_count }}</span>
                             </td>
-                            <td>
-                                <a href=""><i class="fa fa-edit text-warning"></i></a>
+                            <td style="width: 10%">
 
-                                @if ($table->books_count == 0)
-                                    <a href="#" class="ml-2"
-                                        wire:click.prevent='delete{{ $name }}({{ $table->id }})'><i
-                                            class="fa fa-trash text-danger"></i></a>
-                                @else
-                                    <a href="#" class="ml-2"
-                                        wire:click.prevent='edit{{ $name }}({{ $table->id }})'><i
-                                            class="fa fa-trash text-light"></i></a>
-                                @endif
+                                <a href="#" class="text-muted" data-toggle="dropdown">
+                                    <span class="sr-only">Toggle Dropdown</span><i class="fas fa-ellipsis-v"></i>
+                                </a>
+
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" href="#" wire:click.prevent='edit{{ $name }}({{ $table->id }})'>
+                                       <i class="fas fa-edit mr-2 "></i> Edit</a>
+                                    @if (!$table->books_count)
+                                    <a class="dropdown-item text-danger" href="#"  wire:click.prevent='delete{{ $name }}({{ $table->id }})'>
+                                        <i class="fas fa-trash mr-2"></i> Delete</a> 
+                                    @endif
+                                </div>                               
+                              
                             </td>
                         </tr>
                     @endforeach

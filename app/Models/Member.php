@@ -14,13 +14,11 @@ class Member extends Model
         return $this->belongsTo(MemberStatus::class);
     }
 
-    public function classrooms()
-    {
-        return $this->belongsToMany(Classroom::class);
+    public function location(){
+        return $this->belongsTo(Location::class);
     }
 
-    public function hostels()
-    {
-        return $this->belongsToMany(Hostel::class);
+    public function getJoinedDateAttribute(){
+        return $this->created_at->format('d-M-Y');
     }
 }

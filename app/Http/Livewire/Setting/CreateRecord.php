@@ -6,8 +6,9 @@ use App\Models\Author;
 use App\Models\Classroom;
 use App\Models\Genre;
 use App\Models\Hostel;
+use App\Models\Location;
 use App\Models\Series;
-use App\Models\Setting;
+use App\Models\StoryLocation;
 use Livewire\Component;
 
 class CreateRecord extends Component
@@ -42,15 +43,16 @@ class CreateRecord extends Component
         session()->flash('success', 'New Genre created');
         return redirect()->to('/setting/book');
     }
-    public function addSetting()
+    public function addStoryLocation()
     {
         $this->validate();
-        Setting::create([
+        StoryLocation::create([
             'name' => $this->inputValue
         ]);
-        session()->flash('success', 'New Setting created');
+        session()->flash('success', 'New Story Location created');
         return redirect()->to('/setting/book');
     }
+
     public function addSeries()
     {
         $this->validate();
@@ -61,26 +63,7 @@ class CreateRecord extends Component
         return redirect()->to('/setting/book');
     }
 
-    public function addClassroom()
-    {
-        $this->validate();
-        Classroom::create([
-            'name' => $this->inputValue
-        ]);
-        session()->flash('success', 'New Classroom created');
-        return redirect()->to('/setting/member');
-    }
-
-    public function addHostel()
-    {
-        $this->validate();
-        Hostel::create([
-            'name' => $this->inputValue
-        ]);
-        session()->flash('success', 'New Hostel created');
-        return redirect()->to('/setting/member');
-    }
-
+    
     public function render()
     {
         return view('livewire.setting.create-record');

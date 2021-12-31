@@ -7,7 +7,8 @@ use App\Helper\WithModals;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Level;
-use App\Models\Setting;
+use App\Models\Location;
+use App\Models\StoryLocation;
 use Livewire\Component;
 
 class SelectBook extends Component
@@ -15,7 +16,8 @@ class SelectBook extends Component
     use WithModals;
     public $search = [
         'category' => '',
-        'setting' => '',
+        'booklocation' => '',
+        'storylocation' => '',
         'level' => '',
         'book' => '',
     ];
@@ -25,19 +27,22 @@ class SelectBook extends Component
 
     public function render()
     {
-        $settings = Helper::arrayForSelectInput(Setting::all('id', 'name'));
-        $categories = Helper::arrayForSelectInput(Category::all('id', 'name'));
-        $levels = Helper::arrayForSelectInput(Level::all('id', 'name'));
+        $booklocations = Location::all();
+        $storylocations = StoryLocation::all('id', 'name');
+        $categories = Category::all('id', 'name');
+        $levels = Level::all('id', 'name');
         $books = Book::when($this->search['level'], function ($query) {
             $query->where('level_id', $this->search['level']);
-        })->when($this->search['setting'], function ($query) {
-            $query->where('setting_id', $this->search['setting']);
+        })->when($this->search['storylocation'], function ($query) {
+            $query->where('story_location_id', $this->search['storylocation']);            
+        })->when($this->search['booklocation'], function ($query) {
+            $query->where('book_location_id', $this->search['booklocation']);            
         })->when($this->search['category'], function ($query) {
             $query->where('category_id', $this->search['category']);
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
         })->take(5)->get();
-        return view('livewire.manage.select-book', compact('categories', 'settings', 'levels', 'books'));
+        return view('livewire.manage.select-book', compact('categories', 'booklocations', 'storylocations', 'levels', 'books'));
     }
 
     public function bookSelected()

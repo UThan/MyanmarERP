@@ -3,13 +3,14 @@
 </x-slot>
 
 <div>
+    <x-alert/>
     <div class="row">
         <div class="col-md-6 px-4">
             <x-setting.book-table :data='$authors' name='Author' icon='fa fa-users' theme='primary' />
         </div>
 
         <div class="col-md-6 px-4">
-            <x-setting.book-table :data='$settings' name='Setting' icon='fa fa-users' theme='success' />
+            <x-setting.book-table :data='$locations' name='StoryLocation' icon='fa fa-users' theme='success' />
         </div>
     </div>
 

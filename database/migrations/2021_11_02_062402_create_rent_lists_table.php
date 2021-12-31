@@ -1,10 +1,7 @@
 <?php
-
-use Facade\Ignition\Tabs\Tab;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateRentListsTable extends Migration
 {
@@ -17,8 +14,8 @@ class CreateRentListsTable extends Migration
     {
         Schema::create('rent_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id');
-            $table->foreignId('member_id');
+            $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('member_id')->constrained()->onDelete('cascade');
             $table->date('reservation_date')->nullable();
             $table->date('rent_date')->nullable();;
             $table->date('return_date')->nullable();

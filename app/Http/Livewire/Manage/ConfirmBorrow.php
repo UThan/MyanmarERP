@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Manage;
 use App\Models\RentList;
 use Carbon\Carbon;
 use Livewire\Component;
-use phpDocumentor\Reflection\Types\This;
 
 class ConfirmBorrow extends Component
 {
@@ -47,5 +46,6 @@ class ConfirmBorrow extends Component
         }
 
         session()->flash('success', 'Book successfully rented');
+        return redirect()->to('manage/borrow/list');
     }
 }

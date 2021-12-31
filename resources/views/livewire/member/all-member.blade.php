@@ -8,26 +8,34 @@
         <x-alert />
         <a href="{{route('addmember')}}" class="btn btn-primary mb-2">New <i
                 class="fa fa-plus ml-2" aria-hidden="true"></i></a>
-
         
 
         <x-modal id="modalEditMember">
             @livewire('member.editmember')
         </x-modal>
         <div class="card card-dark">
-            <div class="card-header">
+            <div class="card-header pt-4">
                 <div class="row">
                     <div class="col-lg-2 col-md-4">
-                        <x-form.select name="search.classrooms" label="Classroom" :options='$classrooms' />
+                        <x-form.select name="search.location" placeholder="Location" >
+                            @foreach ($locations as $location)
+                                    <option value="{{$location->id}}">
+                                        
+                                        @isset($location->parentlocation)                                          
+                                            {{$location->parentlocation->name}} /
+                                        @endisset
+                                        {{$location->name}} </option>
+                                @endforeach
+                        </x-form.select>
+                    </div>                    
+                    <div class="col-lg-2 col-md-4">
+                        <x-form.select name="search.member_status" placeholder="Member status" :models='$memberstatuses' />
                     </div>
                     <div class="col-lg-2 col-md-4">
-                        <x-form.select name="search.hostels" label="Hostel" :options='$hostels' />
-                    </div>
-                    <div class="col-lg-2 col-md-4">
-                        <x-form.select name="search.status" label="Member status" :options='$status' />
+                        <x-form.select name="search.showonly" :options='$record' />
                     </div>
                     <div class="col-lg-4 col-md-6 offset-2">
-                        <x-form.input type='search' label="Search" name="search.member" placeholder="Search ..." />
+                        <x-form.input type='search' placeholder="Search" name="search.name" placeholder="Search ..." />
                     </div>
                 </div>
             </div>
@@ -39,6 +47,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone No</th>
                                 <th>Member Since</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -49,15 +59,22 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $member->name }}</td>
+                                    <td>{{ $member->email }}</td> 
+                                    <td>{{ $member->phone_no }}</td>                                                                       
                                     <td>{{ $member->joined_date }}</td>
-                                    <td>{{ $member->member_status->name }}</td>
+                                    <td><span class="badge badge-{{$member->member_status->status}}">{{ $member->member_status->name }}</span></td>
                                     <th>
 
-                                        <a href="#" wire:click.prevent='deleteMember({{ $member->id }})'
-                                            class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                                        <a href="#" wire:click.prevent='editMember({{ $member->id }})'
-                                            class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="text-muted" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span><i class="fas fa-ellipsis-v"></i>
+                                        </a>
 
+                                        <div class="dropdown-menu" role="menu">
+                                            <a class="dropdown-item" href="#" wire:click.prevent='edit({{ $member->id }})'>
+                                               <i class="fas fa-edit mr-2 "></i> Edit</a>
+                                            <a class="dropdown-item text-danger" href="#"  wire:click.prevent='delete({{ $member->id }})'>
+                                               <i class="fas fa-trash mr-2"></i> Delete</a>
+                                        </div>
                                     </th>
                                 </tr>
                             @endforeach

@@ -8,7 +8,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
-use App\Models\Setting;
+use App\Models\StoryLocation;
 use App\Imports\BooksImport;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -66,7 +66,7 @@ class Importbook extends Component
             'title' => ['title', 'name'],
             'author' => ['author'],
             'genre' => ['genre', 'price'],
-            'setting' => ['setting', 'location'],
+            'story_location' => ['story_location', 'location'],
             'pages' => ['page', 'pages'],
             'total' => ['no of copy', 'total'],
         ];
@@ -94,10 +94,10 @@ class Importbook extends Component
             ]);
         }
 
-        $setting = Setting::where('name', '=', $book->get('setting'))->first();
-        if (!$setting) {
-            $setting = Setting::create([
-                'name' => $book->get('setting')
+        $story_location = StoryLocation::where('name', '=', $book->get('story_location'))->first();
+        if (!$story_location) {
+            $story_location = StoryLocation::create([
+                'name' => $book->get('story_location')
             ]);
         }
 
@@ -114,7 +114,7 @@ class Importbook extends Component
             $savebook->copies_lost = 0;
             $savebook->level()->associate($level);
             $savebook->series()->associate($series);
-            $savebook->setting()->associate($setting);
+            $savebook->story_location()->associate($story_location);
             $savebook->save();
         }
 

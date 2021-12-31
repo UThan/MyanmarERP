@@ -9,7 +9,7 @@ class Book extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title','book_no','category_id','copies_left','copies_owned','copies_lost'
+        'title','book_no','category_id','copies_left','copies_owned','copies_lost','pages'
     ];
 
     public function authors()
@@ -32,13 +32,17 @@ class Book extends Model
         return $this->belongsTo(Level::class);
     }
 
-    public function setting()
+    public function story_location()
     {
-        return $this->belongsTo(Setting::class);
+        return $this->belongsTo(StoryLocation::class);
     }
 
     public function series()
     {
         return $this->belongsTo(Series::class);
+    }
+
+    public function book_location(){
+        return $this->belongsTo(Location::class);
     }
 }

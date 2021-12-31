@@ -3,15 +3,27 @@
         <div class="card-header pt-4">
             <div class="row">
                 <div class="col-md-2">
-                    <x-form.select name="search.category" placeholder='By category' :options='$categories' />
+                    <x-form.select name="search.category" placeholder='By category' :models='$categories' />
                 </div>
                 <div class="col-md-2">
-                    <x-form.select name="search.level" placeholder="Level" :options='$levels' />
+                    <x-form.select name="search.level" placeholder="Level" :models='$levels' />
                 </div>
                 <div class="col-md-2">
-                    <x-form.select name="search.setting" placeholder="Location" :options='$settings' />
+                    <x-form.select name="search.booklocation" placeholder="Book Location" >
+                        @foreach ($booklocations as $location)
+                                    <option value="{{$location->id}}">
+                                        
+                                        @isset($location->parentlocation)                                          
+                                            {{$location->parentlocation->name}} /
+                                        @endisset
+                                        {{$location->name}} </option>
+                                @endforeach
+                    </x-form.select>
                 </div>
-                <div class="col-md-5 offset-md-1">
+                <div class="col-md-2">
+                    <x-form.select name="search.storylocation" placeholder="Story Location" :models='$storylocations' />
+                </div>
+                <div class="col-md-3 offset-md-1">
                     <x-form.input type='search' name="search.book" placeholder="Enter title..." />
                 </div>
             </div>
@@ -40,10 +52,16 @@
                                         {{ $author->name }}
                                     @endforeach
                                 </td>
-                                <td> {{ $book->setting->name }} </td>
+                                <td> 
+                                    @if ($book->book_location)
+                                    {{ $book->book_location->name }}
+                                    @else
+                                        Unknown
+                                    @endif 
+                                </td>
                                 <td> {{ $book->level->name }} </td>
                                 <td> {{ $book->pages }} </td>
-                                <td style="width: 4rem">
+                                <td style="width: 4rem; padding: 5px">
                                     <div class="icheck-primary">
                                         <input type="checkbox" id="{{ $book->id }}"  wire:model='select' value='{{$book->id}}'>
                                         <label for="{{ $book->id }}"></label>

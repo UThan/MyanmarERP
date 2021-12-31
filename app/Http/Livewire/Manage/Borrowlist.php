@@ -10,13 +10,16 @@ class Borrowlist extends Component
 {
     use WithModals;
     protected $listeners = ['onDelete'];
+
+    
+
     public function render()
     {
-        $borrowlists = RentList::paginate(10);
-        return view('livewire.manage.borrowlist', compact('borrowlists'));
+        $borrowlists = RentList::latest()->paginate(10);
+        return view('livewire.manage.borrow-list', compact('borrowlists'));
     }
 
-    public function confirm($id)
+    public function delete($id)
     {
         $this->confirmDelete($id);
     }
@@ -24,5 +27,11 @@ class Borrowlist extends Component
     public function onDelete($id)
     {
         RentList::destroy($id);
+    }
+
+    public function edit($id)
+    {
+        $this->emit('showEditBorrowList', $id);
+        $this->openModal('modalEditBorrowList');
     }
 }

@@ -1,4 +1,4 @@
-@props(['type' => 'text', 'name', 'label', 'inline' => false, 'options' => [], 'placeholder' => false, 'multiple' => false])
+@props(['type' => 'text', 'name', 'label', 'inline' => false, 'options' => [], 'models', 'placeholder' => false, 'multiple' => false])
 
 <div class="form-group {{ $inline ? 'row' : '' }}">
     @isset($label)
@@ -10,13 +10,22 @@
     @endif
     <select class="custom-select @error($name) is-invalid  @enderror" name="{{ $name }}" id="{{ $name }}"
         wire:model='{{ $name }}' {{ $multiple ? 'multiple' : '' }}>
-        <option selected>{{ $placeholder ? $placeholder : 'Select option..' }}</option>
+        <option selected value="">{{ $placeholder ? $placeholder : 'Select option..' }}</option>
 
-        @forelse ($options as $key=>$value)
-            <option value="{{ $key }}">{{ $value }}</option>
-        @empty
-            {{ $slot }}
-        @endforelse
+        
+
+        @isset($models)
+            @foreach ($models as $model)
+                <option value="{{ $model->id }}">{{ $model->name }}</option>
+            @endforeach
+        @else 
+            @forelse ($options as $key=>$value)
+                <option value="{{ $key }}">{{ $value }}</option>
+            @empty
+                {{ $slot }}
+            @endforelse
+        @endisset
+
     </select>
     <x-form.error :name="$name" />
     @if ($inline)</div>@endif

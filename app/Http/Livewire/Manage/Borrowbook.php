@@ -14,7 +14,7 @@ class Borrowbook extends Component
     public $books = '';
     public function render()
     {
-        return view('livewire.manage.borrowbook');
+        return view('livewire.manage.borrow-book');
     }
 
     public function onMemberSelected($id)

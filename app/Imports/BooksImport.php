@@ -11,7 +11,7 @@ use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
-use App\Models\Setting;
+use App\Models\StoryLocation;
 
 class BooksImport implements OnEachRow, WithHeadingRow
 {
@@ -30,8 +30,8 @@ class BooksImport implements OnEachRow, WithHeadingRow
         ]);
 
        
-        $setting = Setting::firstOrCreate([
-            'name' => $item['setting']
+        $story_location = StoryLocation::firstOrCreate([
+            'name' => $item['story_location']
         ]);
          
         $category = Category::firstOrCreate([
@@ -41,24 +41,24 @@ class BooksImport implements OnEachRow, WithHeadingRow
         $book = Book::firstOrNew(
             [ 'title' =>  $item['title']  ],
             [ 
-                'book_no' => $item['no'], 
-                'pages' => 0,              
+                'book_no' => $item['no'],               
                 'copies_owned' => $item['total'], 
-                'copies_left' => $item['total'], 
-                'copies_lost' => 0, 
+                'copies_left' => $item['total'],                 
+                'copies_lost' => 0,            
+                'pages' =>  $item['pages'],       
             ]
-        );
+        );        
 
         $book->level()->associate($level);
         $book->series()->associate($series);
-        $book->setting()->associate($setting);
+        $book->story_location()->associate($story_location);
         $book->category()->associate($category);
         $book->save();
 
         $authors = explode(",", $item['author']);
         foreach ($authors as $bookauthor) {
             $author = Author::firstOrCreate([
-                'name' => $item['author']
+                'name' => $bookauthor
             ]);
             if (!$book->authors->contains($author->id)) {
                 $book->authors()->attach($author->id);
@@ -68,7 +68,7 @@ class BooksImport implements OnEachRow, WithHeadingRow
         $genres = explode(",", $item['genre']);
         foreach ($genres as $bookgenre) {
             $genre = Genre::firstOrCreate([
-                'name' => $item['genre']
+                'name' => $bookgenre
             ]);
             if (!$book->genres->contains($genre->id)) {
                 $book->genres()->attach($genre->id);

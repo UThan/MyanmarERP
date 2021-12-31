@@ -23,7 +23,8 @@ class CreateBooksTable extends Migration
             $table->integer('copies_lost')->nullable();
             $table->integer('pages')->nullable();
             $table->foreignId('level_id');
-            $table->foreignId('setting_id');
+            $table->foreignId('story_location_id')->nullable();
+            $table->foreignId('book_location_id')->nullable();
             $table->foreignId('series_id');
             $table->timestamps();
         });

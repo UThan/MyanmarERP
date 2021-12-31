@@ -1,9 +1,11 @@
 try {
     window.Popper = require("popper.js").default;
-    window.$ = window.jQuery = require("jquery");
-
-    require("bootstrap");
-
-    // AdminLTE code here.
+    window.$ = window.jQuery = require("jquery");   
+    require("bootstrap");   
     require("admin-lte");
-} catch (e) {}
+
+} catch (e) {
+    console.log(e)
+}
+
+

@@ -28,7 +28,13 @@
                           <td>{{$book->title}}</td>
                           <td>{{$book->series->name}}</td>
                           <td>{{$book->level->name}}</td>
-                          <td>{{$book->setting->name}}</td>
+                          <td>
+                              @if ($book->book_location)
+                                {{$book->book_location->name}}
+                              @else
+                                  Unknown
+                              @endif
+                          </td>
                           <td><a href="#" class="btn-link btn-sm text-danger" wire:click.prevent='remove({{$book->id}})'>remove</a></td>
                         </tr>
                         @endforeach
@@ -49,25 +55,12 @@
                     <dd class="col-sm-8">{{$member->phone_no}}</dd>   
                     <dt class="col-sm-4"><i class="fa fa-building" aria-hidden="true"></i> Classrooms</dt>  
                     <dd class="col-sm-8">
-                        @foreach ($member->classrooms as $classroom)
-                            {{$classroom->name}}
-                        @endforeach
-
-                        @if ($member->classrooms->count() < 1)
+                        @if ($member->location)
+                            {{$member->location->name}}
+                        @else
                             Unknown
                         @endif
                     </dd>    
-                    <dt class="col-sm-4"><i class="fa fa-school" aria-hidden="true"></i> Hostel</dt>  
-                    <dd class="col-sm-8">
-                        @foreach ($member->hostels as $hostel)
-                            {{$hostel->name}}
-                        @endforeach
-
-                        @if ($member->hostels->count() < 1)
-                            Unknown
-                        @endif
-                    </dd>  
-                
                 </dl>
 
                 <hr>
