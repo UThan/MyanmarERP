@@ -13,7 +13,7 @@ use App\Models\Level;
 use App\Models\Location;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Allbook extends Component
+class AllBook extends Component
 {
     use WithModals;
     use WithPagination;
@@ -43,8 +43,7 @@ class Allbook extends Component
 
     public function onDelete($id)
     {
-        $book = Book::find($id);
-        $book->delete();
+        $book = Book::destroy($id);
         session()->flash('success', 'successfully deleted');
     }
 

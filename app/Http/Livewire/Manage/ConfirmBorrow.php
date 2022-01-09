@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Manage;
 
+use App\Models\Book;
 use App\Models\RentList;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -33,17 +34,23 @@ class ConfirmBorrow extends Component
 
     public function borrow()
     {
-
-        foreach ($this->selected as $book) {
             $record = new RentList;
-            $record->book_id = $book->id;
             $record->member_id = $this->member->id;
             $record->reservation_date = Carbon::today()->toDateString(); 
             $record->rent_date = Carbon::today()->toDateString();  
-            $record->due_date = Carbon::today()->addDay(14)->toDateString();
-            $record->rent_status_id = 1;
-            $record->save();            
-        }
+            $record->due_date = Carbon::today()->addDay(14)->toDateString();            
+            $record->save(); 
+            foreach ($this->selected as $book) {
+                $record->books()->attach($book,['rent_status_id' => 1]);  
+            }
+           
+            foreach ($this->selected as $book) {
+                $book->decrement('copies_left');   
+                $book->save();             
+            }
+            
+            
+        
 
         session()->flash('success', 'Book successfully rented');
         return redirect()->to('manage/borrow/list');

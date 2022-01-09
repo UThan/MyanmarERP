@@ -44,7 +44,8 @@ class BooksImport implements OnEachRow, WithHeadingRow
                 'book_no' => $item['no'],               
                 'copies_owned' => $item['total'], 
                 'copies_left' => $item['total'],                 
-                'copies_lost' => 0,            
+                'copies_lost' => 0, 
+                'book_location_id' => 0,             
                 'pages' =>  $item['pages'],       
             ]
         );        

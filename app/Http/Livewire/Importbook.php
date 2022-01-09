@@ -38,7 +38,7 @@ class Importbook extends Component
     public function import()
     {  
         Excel::import(new BooksImport, $this->upload);
-        session()->flash('success', $this->totalSaved . ' record successfully added');
+        session()->flash('success', ' record successfully added');
         return redirect()->to('/book');
     }
 

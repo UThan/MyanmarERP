@@ -9,9 +9,9 @@ class RentList extends Model
 {
     use HasFactory;
 
-    public function book()
+    public function books()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsToMany(Book::class)->withPivot('feedback_id', 'rent_status_id', 'return_date');
     }
 
     public function member()

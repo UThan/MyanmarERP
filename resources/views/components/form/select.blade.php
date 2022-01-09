@@ -8,9 +8,14 @@
     @if ($inline)
         <div class="col-sm-{{ $inline }}">
     @endif
-    <select class="custom-select @error($name) is-invalid  @enderror" name="{{ $name }}" id="{{ $name }}"
-        wire:model='{{ $name }}' {{ $multiple ? 'multiple' : '' }}>
+    <select class="form-control @error($name) is-invalid  @enderror"
+            name="{{ $name }}" id="{{ $name }}"
+            wire:model='{{ $name }}' {{ $multiple ? 'multiple' : '' }}>
+
+    @if ($placeholder)
         <option selected value="">{{ $placeholder ? $placeholder : 'Select option..' }}</option>
+    @endif
+    
 
         
 

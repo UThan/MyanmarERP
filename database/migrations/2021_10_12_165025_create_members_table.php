@@ -19,7 +19,7 @@ class CreateMembersTable extends Migration
             $table->string('email', 20);
             $table->string('phone_no', 20);
             $table->foreignId('member_status_id');
-            $table->foreignId('location_id');
+            $table->foreignId('location_id')->nullable();
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@
                 <div class="col">
                     <x-form.input name="book.pages" label="Pages" type="number" placeholder="Enter pages a in book" />
                 </div>
-                
+
             </div>
 
             <div class="form-row">
@@ -46,7 +46,7 @@
                     <x-form.select :models='$categories' name="book.category_id" label="Category"
                         placeholder="Select category" />
                 </div>
-                
+
                 <div class="col">
                     <x-form.select :models='$series' name="book.series_id" label="Series"
                         placeholder="Select series name" />
@@ -58,19 +58,16 @@
                     <x-form.select :models='$story_locations' name="book.story_location_id" label="Story Location"
                         placeholder="Select story_location" />
                 </div>
-                
+
                 <div class="col">
-                    <x-form.select name="book.book_location_id" label="Book Location"
-                        placeholder="Select category" >
-                        @foreach ($book_locations as $location)
-                                    <option value="{{$location->id}}">
-                                        
-                                        @isset($location->parentlocation)                                          
-                                            {{$location->parentlocation->name}} /
-                                        @endisset
-                                        {{$location->name}} </option>
-                                @endforeach
+                    <x-form.select name="book_location" :models='$main_locations' label="Book Location"
+                        placeholder="Select category">
                     </x-form.select>
+                    @if ($sub_locations)
+                        <x-form.select name="book.book_location_id" :models='$sub_locations'
+                            placeholder="Select category">
+                        </x-form.select>
+                    @endif
                 </div>
             </div>
         </div>

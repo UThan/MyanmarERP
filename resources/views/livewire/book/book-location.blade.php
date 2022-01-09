@@ -8,88 +8,67 @@
     <div class="row">
         <div class="col">
             <div class="card card-secondary">
-                <div class="card-header pt-4">
-                    <div class="row">                
-                        
+                <div class="card-header">
+                    <div class="card-title">
+                        Books Locations
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    @if ($book_locations && $book_locations->count() > 0)
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Location</th>
-                                    <th>Total Book</th>
-                                    <th>#</th>
+                    @if ($locations && $locations->count() > 0)
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Main Location</th>
+                                <th>Sub Location</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($locations as $location)
+                                <tr wire:click="show({{$location->id}})">
+                                    <td>{{$location->name}}</td>
+                                    <td>{{$location->parentlocation->name}}</td>   
+                                    <td>                                            
+                                        <a href="#" ><i class="fa fa-angle-double-right text-muted" aria-hidden="true"></i></a>                                                  
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($book_locations as $location)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td> 
-                                        <td style="width: 50%">{{ $location->name }} </td>
-                                        <td>{{ $location->books_count }}</td>                                        
-        
-                                        <td>                                            
-                                            <a href="#" wire:click="show({{$location->id}})"><i class="fa fa-angle-double-right text-muted" aria-hidden="true"></i></a>                                                  
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @else
                         <p class="text-center text-muted p-4 mb-0">No data to shown</p>
                     @endif
+                  
                 </div>
                 <!-- /.card-body -->
         
-                @if ($book_locations->hasPages())
-                    <div class="card-footer pb-0">
-                        {{ $book_locations->onEachSide(1)->links() }}
-                    </div>
-                @endif
+               
             </div>
         </div>
 
         <div class="col">
             <div class="card card-secondary">
-                <div class="card-header pt-4">
-                    <div class="row">                
-                        
+                <div class="card-header">
+                    <div class="card-title">
+                        Books 
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    @if ($books && $books->count() > 0)
+                    @if ($details && $details->count() > 0)
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
                                     <th>Genre</th>
-                                    <th>Level</th>
-                                    <th>StoryLocation</th>
+                                    <th>Total Copy</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($books as $book)
+                                @foreach ($details as $detail)
                                     <tr>
-                                        <td>{{$book->title}}</td>
-                                        <td>
-                                            @isset($book->genres)
-                                                @foreach ($book->genres as $genre)
-                                                    {{$genre->name}}
-                                                @endforeach
-                                            @endisset
-                                        </td>
-                                        <td>
-                                            {{$book->level->name}}
-                                        </td>  
-                                        <td>
-                                            {{$book->story_location->name}}
-                                        </td>      
-                                        
+                                        <td>{{$detail->genre}}</td>
+                                        <td>{{$detail->total}}</td>  
                                     </tr>
                                 @endforeach
                             </tbody>

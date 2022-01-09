@@ -33,13 +33,14 @@
                     <div class="form-row">
                         <div class="col">
                             <x-form.select multiple :models='$authors' name="author_ids" label="Author Name"
-                                placeholder="Enter author name" />
+                                placeholder="Enter author name"  />
                         </div>
         
                         <div class="col">
                             <x-form.select :models='$genres' name="genre_ids" label="Genre" placeholder="Enter book genre"
                                 multiple />
                         </div>
+                       
                     </div>
         
                     <div class="form-row">
@@ -61,17 +62,14 @@
                         </div>
                         
                         <div class="col">
-                            <x-form.select name="book.book_location_id" label="Book Location"
-                                placeholder="Select category" >
-                                @foreach ($book_locations as $location)
-                                    <option value="{{$location->id}}">
-                                        
-                                        @isset($location->parentlocation)                                          
-                                            {{$location->parentlocation->name}} /
-                                        @endisset
-                                        {{$location->name}} </option>
-                                @endforeach
+                            <x-form.select name="book_location" :models='$main_locations' label="Book Location"
+                                placeholder="Select category" >                               
                             </x-form.select>
+                            @if($sub_locations)
+                                <x-form.select name="book.book_location_id" :models='$sub_locations'
+                                placeholder="Select category" >                               
+                            </x-form.select>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -84,3 +82,4 @@
         
     </div>
 </div>
+

@@ -8,6 +8,7 @@ use App\Models\Level;
 use App\Models\Genre;
 use App\Models\Book;
 use App\Helper\WithModals;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 use Livewire\Component;
@@ -17,7 +18,7 @@ class BookLocation extends Component
     use WithModals;
     use WithPagination;
 
-    public $books;
+    public $details;
 
 
     protected $paginationTheme = 'bootstrap';
@@ -36,16 +37,20 @@ class BookLocation extends Component
     ];
     
     public function render()
-    {
-        $story_locations = StoryLocation::all('id', 'name');
-        $book_locations = Location::withCount('books')->paginate(5);          
-        $genres = Genre::all('id', 'name');
-        $levels = Level::all('id', 'name');          
-        return view('livewire.book.book-location', compact('story_locations','book_locations', 'levels', 'genres'));
-     
+    {          
+        $locations = Location::where('main_location_id','!=',0)->get();  
+        return view('livewire.book.book-location', compact('locations'));
     }
 
-    public function show($id){
-        $this->books = Book::where('book_location_id',$id)->get();
+    public function show($location){
+        $this->details = DB::table('books')                        
+        ->join('book_genre','books.id','book_genre.book_id')
+        ->join('genres','book_genre.genre_id','genres.id')
+        ->join('locations','books.book_location_id','locations.id') 
+        ->select(DB::raw('sum(copies_owned) as total'),'genres.name as genre')   
+        ->where('locations.id',$location)             
+        ->groupBy('genres.name')->get();
     }
+
+ 
 }

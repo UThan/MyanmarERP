@@ -12,8 +12,9 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('/css/adminlte.min.css') }}">  
-  <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}"> 
+   
+  <link rel="stylesheet" href="{{ asset('/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}"> 
+  <link rel="stylesheet" href="{{ asset('/css/adminlte.min.css') }}"> 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -63,5 +64,7 @@
 <livewire:scripts>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('js/app.js') }}" ></script>
+@stack('scripts')
+
 </body>
 </html>

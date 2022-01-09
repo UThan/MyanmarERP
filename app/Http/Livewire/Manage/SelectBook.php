@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Manage;
 
-use App\Helper\Helper;
 use App\Helper\WithModals;
 use App\Models\Book;
 use App\Models\Category;
@@ -23,11 +22,11 @@ class SelectBook extends Component
     ];
 
     public $select = [];
-
+    public $main_location,$sub_locations;
 
     public function render()
     {
-        $booklocations = Location::all();
+        $main_locations = Location::where('main_location_id',0)->get();
         $storylocations = StoryLocation::all('id', 'name');
         $categories = Category::all('id', 'name');
         $levels = Level::all('id', 'name');
@@ -42,7 +41,7 @@ class SelectBook extends Component
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
         })->take(5)->get();
-        return view('livewire.manage.select-book', compact('categories', 'booklocations', 'storylocations', 'levels', 'books'));
+        return view('livewire.manage.select-book', compact('categories', 'main_locations', 'storylocations', 'levels', 'books'));
     }
 
     public function bookSelected()
@@ -53,5 +52,10 @@ class SelectBook extends Component
     public function clearMember()
     {
         $this->emit('clearMember');
+    }
+
+    public function updatedMainLocation($id)
+    {
+        $this->sub_locations = Location::where('main_location_id',$id)->get();
     }
 }

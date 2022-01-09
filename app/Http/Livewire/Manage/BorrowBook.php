@@ -6,7 +6,7 @@ use App\Models\Book;
 use App\Models\Member;
 use Livewire\Component;
 
-class Borrowbook extends Component
+class BorrowBook extends Component
 {
 
     protected $listeners = ['memberSelected' => 'onMemberSelected', 'bookSelected' => 'onBookSelected', 'clearMember' => 'onClearMember', 'clearBooks'=> 'onClearBooks'];

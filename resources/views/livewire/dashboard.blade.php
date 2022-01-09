@@ -6,7 +6,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>Book</h3>
+                <h3>{{$total_books}}</h3>
 
                 <p>Total books</p>
             </div>
@@ -21,7 +21,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>200</h3>
+                <h3>{{$total_members}}</h3>
 
                 <p>Total members</p>
             </div>
@@ -36,14 +36,14 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
+                <h3>{{$total_borrow_lists}}</h3>
 
-                <p>User Registrations</p>
+                <p>Borrow times</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('borrowlist') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -53,7 +53,7 @@
             <div class="inner">
                 <h3>65</h3>
 
-                <p>Total Rented</p>
+                <p>User feedback</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>

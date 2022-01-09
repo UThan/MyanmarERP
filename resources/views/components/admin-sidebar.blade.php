@@ -85,35 +85,19 @@
                 <li class="nav-header">
                     Admin
                 </li>
-                <li class="nav-item menu-close">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                            Setting
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ route('booksetting') }}" class="nav-link">
+                        <i class="nav-icon fas fa-book-reader"></i>
+                        <p>Book Settings</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('booksetting') }}" class="nav-link">
-                                <i class="nav-icon fas fa-book-reader"></i>
-                                <p>Book Settings</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('locationsetting') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>Location Settings</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class=" nav-link">
-                        <i class="fas fa-user-cog nav-icon"></i>
-                        <p>Profile</p>
+                    <a href="{{ route('locationsetting') }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-cog"></i>
+                        <p>Location Settings</p>
                     </a>
                 </li>
+                
 
             </ul>
         </nav>

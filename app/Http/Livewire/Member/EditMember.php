@@ -10,6 +10,7 @@ use Livewire\Component;
 class Editmember extends Component
 {
     public Member $member;  
+    public $main_location,$sub_locations;   
     protected $listeners = ['editMember' => 'bindData']; 
 
     public $rules = [
@@ -23,6 +24,11 @@ class Editmember extends Component
     public function bindData($id)
     {
         $this->member = Member::find($id);
+        $this->reset(['main_location', 'sub_locations']);
+        if($this->member->location_id){
+            $this->main_location = $this->member->location->main_location_id;
+            $this->sub_locations = Location::where('main_location_id',$this->main_location)->get();
+        }
     }
     
     public function submit()
@@ -35,9 +41,18 @@ class Editmember extends Component
 
     public function render()
     {
-        $locations = Location::all();
+        $main_locations = Location::where('main_location_id','0')->get();;
         $memberstatuses = MemberStatus::all('id', 'name');
-        return view('livewire.member.edit-member',compact('locations', 'memberstatuses'));
+        return view('livewire.member.edit-member',compact('main_locations', 'memberstatuses'));
     }
     
+    public function updatedMainLocation($id)
+    {
+            $this->sub_locations = Location::where('main_location_id',$id)->get();
+    }
+
+    public function updatedSubLocation($id)
+    {
+        $this->member->location_id =$id;
+    }
 }
