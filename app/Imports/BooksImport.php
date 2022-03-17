@@ -3,24 +3,23 @@
 namespace App\Imports;
 
 use App\Models\Author;
-use Maatwebsite\Excel\Row;
-use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
 use App\Models\StoryLocation;
+use Maatwebsite\Excel\Row;
+use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
-class BooksImport implements OnEachRow, WithHeadingRow
+class BooksImport implements OnEachRow, WithHeadingRow, SkipsEmptyRows
 {
     public function onRow(Row $row)
     {
 
-        $item = $row->toArray();    
-         
-        
+        $item = $row->toArray();   
         $level = Level::firstOrCreate([
             'name' => $item['level']
         ]);
@@ -29,26 +28,26 @@ class BooksImport implements OnEachRow, WithHeadingRow
             'name' => $item['series']
         ]);
 
-       
+
         $story_location = StoryLocation::firstOrCreate([
             'name' => $item['story_location']
         ]);
-         
+
         $category = Category::firstOrCreate([
             'name' => $item['category']
         ]);
-        
+
         $book = Book::firstOrNew(
-            [ 'title' =>  $item['title']  ],
-            [ 
-                'book_no' => $item['no'],               
-                'copies_owned' => $item['total'], 
-                'copies_left' => $item['total'],                 
-                'copies_lost' => 0, 
-                'book_location_id' => 0,             
-                'pages' =>  $item['pages'],       
+            ['title' =>  $item['title']],
+            [
+                'book_no' => $item['no'],
+                'copies_owned' => $item['total'],
+                'copies_left' => $item['total'],
+                'copies_lost' => 0,
+                'book_location_id' => 0,
+                'pages' =>  $item['pages'],
             ]
-        );        
+        );
 
         $book->level()->associate($level);
         $book->series()->associate($series);
@@ -75,6 +74,5 @@ class BooksImport implements OnEachRow, WithHeadingRow
                 $book->genres()->attach($genre->id);
             }
         }
-        
     }
 }

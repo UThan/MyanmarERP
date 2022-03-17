@@ -18,7 +18,6 @@ class CreateRentListsTable extends Migration
             $table->date('reservation_date')->nullable();
             $table->date('rent_date')->nullable();;
             $table->date('due_date')->nullable();
-            $table->foreignId('rent_status_id');
             $table->timestamps();
         });
     }

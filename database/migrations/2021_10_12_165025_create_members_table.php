@@ -16,10 +16,14 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->enum('gender', ['male','female']);
             $table->string('email', 20);
             $table->string('phone_no', 20);
-            $table->foreignId('member_status_id');
-            $table->foreignId('location_id')->nullable();
+            $table->foreignId('institution_id')->nullable();
+            $table->foreignId('region_id')->nullable();
+            $table->text('address_1')->nullable();
+            $table->text('address_2')->nullable();
+            $table->foreignId('member_status_id')->default('1');
             $table->timestamps();
         });
     }

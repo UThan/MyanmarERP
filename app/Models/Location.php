@@ -18,13 +18,6 @@ class Location extends Model
     {
         return $this->hasMany(Member::class);
     }
-
-    public function sublocations(){
-        return $this->hasMany(Location::class,'main_location_id');
-    }
-
-    public function parentlocation(){
-        return $this->belongsTo(Location::class,'main_location_id');
-    }
+    
     
 }

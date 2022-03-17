@@ -16,7 +16,6 @@ class CreateStoryLocationsTable extends Migration
         Schema::create('story_locations', function (Blueprint $table) {
             $table->id();
             $table->string('name', 20);
-            $table->timestamps();
         });
     }
 

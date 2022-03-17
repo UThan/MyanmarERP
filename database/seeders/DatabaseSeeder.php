@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\BookStatus;
 use App\Models\Category;
 use App\Models\Feedback;
 use App\Models\MemberStatus;
@@ -20,15 +21,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create();
-        $category = Category::factory()->count(2)->state(new Sequence(
-            ['name' => 'LRS'],
-            ['name' => 'CRS']
-        ))->create();
+        $user = User::factory()->create();       
         $memberstatus = MemberStatus::factory()->count(3)->state(new Sequence(
             ['name' => 'Active'],
             ['name' => 'Deactived'],
             ['name' => 'Unverified'],
+        ))->create();
+        $bookstatus = BookStatus::factory()->count(3)->state(new Sequence(
+            ['name' => 'production'],
+            ['name' => 'printed'],
+            ['name' => 'reserved'],
         ))->create();
         $rentstatus = RentStatus::factory()->count(3)->state(new Sequence(
             ['name' => 'Rented'],

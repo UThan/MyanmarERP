@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Helper\WithModals;
-use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Level;
