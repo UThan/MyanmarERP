@@ -34,7 +34,7 @@
                 <li class="nav-item">
                     <a href="{{ route('addbook') }}" class="nav-link">
                         <i class="fas fa-plus-square nav-icon"></i>
-                        <p>Add new book</p>
+                        <p>New Entry</p>
                     </a>
                 </li>
 
@@ -44,6 +44,25 @@
                         <p>Book Location</p>
                     </a>
                 </li>
+
+
+                <li class="nav-header">
+                    Institutes
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('institution') }}" class="nav-link">
+                        <i class="fas fa-university nav-icon"></i>
+                        <p>All institutes</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('addinstitution') }}" class="nav-link">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                        <p>Create</p>
+                    </a>
+                </li>
+               
 
 
                 <li class="nav-header">
@@ -59,7 +78,7 @@
                 <li class="nav-item">
                     <a href="{{ route('addmember') }}" class="nav-link">
                         <i class="fas fa-users nav-icon"></i>
-                        <p>Register Members</p>
+                        <p>Register</p>
                     </a>
                 </li>
 
