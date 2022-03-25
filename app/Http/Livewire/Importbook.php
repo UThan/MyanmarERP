@@ -12,7 +12,6 @@ use App\Imports\BooksImport;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Importbook extends Component
@@ -107,7 +106,8 @@ class Importbook extends Component
             $savebook->title = $book->get('title');
             $savebook->book_no = $book->get('no');
             $savebook->pages = $book->get('pages');
-            $savebook->category_id =  $this->field['category'];
+            $savebook->author = $book->get('author');
+            $savebook->category =  $this->field['category'];
             $savebook->copies_owned = $book->get('total');
             $savebook->copies_left = $book->get('total');
             $savebook->copies_lost = 0;
@@ -115,19 +115,6 @@ class Importbook extends Component
             $savebook->series()->associate($series);
             $savebook->story_location()->associate($story_location);
             $savebook->save();
-        }
-
-        $authors = collect(explode(",", $book->get('author')));
-        foreach ($authors as $bookauthor) {
-            $author = Author::where('name', '=', $bookauthor)->first();
-            if (!$author) {
-                $author = Author::create([
-                    'name' => $book->get('author')
-                ]);
-            }
-            if (!$savebook->authors->contains($author->id)) {
-                $savebook->authors()->attach($author->id);
-            }
         }
 
         $genres = collect(explode(",", $book->get('genre')));
