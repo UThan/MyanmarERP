@@ -24,7 +24,6 @@ class RentList extends Model
         return $this->belongsTo(RentStatus::class);
     }
 
-
     public function feedback()
     {
         return $this->belongsTo(Feedback::class);

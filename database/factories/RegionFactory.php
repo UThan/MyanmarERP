@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Classroom;
+use App\Models\Region;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ClassroomFactory extends Factory
+class RegionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Classroom::class;
+    protected $model = Region::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class ClassroomFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
         ];
     }
 }

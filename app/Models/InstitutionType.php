@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Series extends Model
+class InstitutionType extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = [
-        'name'
-    ];
 
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
+    
     public function books()
     {
-        return $this->hasMany(Book::class);
+        return $this->hasManyThrough(Book::class,Institution::class);
     }
 }
