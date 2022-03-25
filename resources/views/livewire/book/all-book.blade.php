@@ -18,16 +18,13 @@
     <x-modal id="modalImport">
         @livewire('importbook')
     </x-modal>
-
-    <x-modal id="modalEdit" class="modal-lg">
-        @livewire('book.editbook')
-    </x-modal>
+   
 
     <div class="card card-dark">
         <div class="card-header pt-4">
-            <div class="row">
+            <div class="row">                
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.category" placeholder="Category" :models='$categories' />
+                    <x-form.select name="search.category" placeholder="Category" :options="$categories" />
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.level" placeholder="Level" :models='$levels' />
@@ -38,7 +35,7 @@
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.showonly" :options='$record' />
                 </div>
-                <div class="col-lg-4 col-md-8">
+                <div class="col-lg-3 col-md-8 offset-lg-1">
                     <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search ..." />
                 </div>
             </div>
@@ -49,9 +46,8 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Level</th>
-                            <th>Book no</th>
+                            <th>#</th>
+                            <th>TITLE</th>
                             <th>Story Location</th>
                             <th>Genre</th>
                             <th>Page</th>
@@ -63,10 +59,13 @@
                     <tbody>
                         @foreach ($books as $book)
                             <tr>
+                                <td>{{ $book->level->name }}_{{ $book->book_no }}</td>                                
                                 <td>{{ $book->title }}</td>
-                                <td>{{ $book->level->name }}</td>
-                                <td>{{ $book->book_no }}</td>
-                                <td>{{ $book->story_location->name }}</td>
+                                <td>
+                                    @if ($book->story_location)
+                                        {{$book->story_location->name }}
+                                    @endif
+                                </td>
                                 <td>
                                     @foreach ($book->genres as $genre)
                                         {{ $genre->name }}
@@ -74,9 +73,7 @@
                                 </td>
                                 <td>{{ $book->pages }}</td>
                                 <td>
-                                    @foreach ($book->authors as $author)
-                                        {{ $author->name }}
-                                    @endforeach
+                                    {{ $book->author }}
                                 </td>
                                 <td> {{ $book->series->name}} </td>
                                 
@@ -88,7 +85,7 @@
                                     </a>
 
                                         <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item" href="#" wire:click.prevent='edit({{ $book->id }})'>
+                                            <a class="dropdown-item" href="{{route('editbook', $book->id)}}">
                                                <i class="fas fa-edit mr-2 "></i> Edit</a>
                                             <a class="dropdown-item text-danger" href="#"  wire:click.prevent='delete({{ $book->id }})'>
                                                <i class="fas fa-trash mr-2"></i> Delete</a>
