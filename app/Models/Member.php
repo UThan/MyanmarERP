@@ -17,6 +17,10 @@ class Member extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    public function region(){
+        return $this->belongsTo(Region::class);
+    }
+
     public function getJoinedDateAttribute(){
         return $this->created_at->format('d-M-Y');
     }

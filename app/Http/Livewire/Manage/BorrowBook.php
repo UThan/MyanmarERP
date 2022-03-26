@@ -9,30 +9,30 @@ use Livewire\Component;
 class BorrowBook extends Component
 {
 
-    protected $listeners = ['memberSelected' => 'onMemberSelected', 'bookSelected' => 'onBookSelected', 'clearMember' => 'onClearMember', 'clearBooks'=> 'onClearBooks'];
-    public $member = '';
-    public $books = '';
+    protected $listeners = ['memberSelected', 'bookSelected', 'back'];
+    public $member, $books;
+    public $step = 1;
     public function render()
     {
         return view('livewire.manage.borrow-book');
     }
 
-    public function onMemberSelected($id)
+    public function memberSelected($id)
     {
         $this->member = Member::find($id);
+        $this->step = 2;
     }
 
-    public function onBookSelected($ids)
+    public function bookSelected($ids)
     {
-        $this->books = Book::find($ids);      
+        $this->books = Book::find($ids);   
+        $this->step = 3;   
     }
 
-    public function onClearMember()
+    public function back()
     {
-        $this->member = '';    
+        $this->step -- ;
     }
 
-    public function onClearBooks(){
-        $this->books = '';
-    }
+    
 }

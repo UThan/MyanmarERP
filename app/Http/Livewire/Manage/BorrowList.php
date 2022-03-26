@@ -69,11 +69,8 @@ class BorrowList extends Component
         $rentlist->books()
         ->syncWithoutDetaching([
             $id => ['return_date'=> Carbon::today()->toDateString(),
-                    'rent_status_id' => 2]]);
-                    
-        $book = Book::find($id);
-        $book->increment('copies_left');   
-        $book->save();
+                    'rent_status_id' => 2]]);                    
+        
         $this->booklists = $rentlist->books;
         
     }

@@ -8,6 +8,8 @@ trait WithData
 
     public $gender = ["male" => "Male", "female" => "Female"];
 
+    public $rentduration = 14;
+
     public  $record = [
         5 => '5 records',
         10 => '10 records',

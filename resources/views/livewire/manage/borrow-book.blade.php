@@ -6,14 +6,13 @@
 <x-alert/>
 <div class="row">
     <div class="col">        
-        @if (!$member)
+        @if ($step ==  1)
         @livewire('manage.select-member',key('member'))  
-        @elseif ($member && !$books)
+        @elseif ($step == 2)
         @livewire('manage.select-book',key('book'))
-        @elseif ($books)
+        @elseif ($step == 3) 
         @livewire('manage.confirm-borrow',compact('member','books'),key('confirm'))
         @endif 
-
     </div>
 </div>
 

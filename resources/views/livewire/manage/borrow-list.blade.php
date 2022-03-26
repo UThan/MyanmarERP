@@ -3,11 +3,7 @@
 </x-slot>
 
 <div>
-    <x-alert />
-
-    <x-modal id="modalRentStatus">
-        @livewire('manage.edit-rent-status')
-    </x-modal>
+    <x-alert />   
 
     <div class="row">
         <div class="col-lg-6">
