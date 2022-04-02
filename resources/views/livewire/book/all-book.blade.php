@@ -24,7 +24,10 @@
         <div class="card-header pt-4">
             <div class="row">                
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.category" placeholder="Category" :options="$categories" />
+                    <x-form.select name="search.series" placeholder="Series" :models="$series" />
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <x-form.select name="search.genre" placeholder="Genres" :models="$genres" />
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.level" placeholder="Level" :models='$levels' />
@@ -35,7 +38,7 @@
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.showonly" :options='$record' />
                 </div>
-                <div class="col-lg-3 col-md-8 offset-lg-1">
+                <div class="col-lg-2 col-md-8 ">
                     <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search ..." />
                 </div>
             </div>

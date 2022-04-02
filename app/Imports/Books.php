@@ -12,16 +12,12 @@ use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
-class BooksImport implements OnEachRow, WithHeadingRow, SkipsEmptyRows
+class Books implements OnEachRow, WithHeadingRow, SkipsEmptyRows
 {
     public function onRow(Row $row)
     {
 
-        $item = $row->toArray();  
-        
-        
-
-        
+        $item = $row->toArray();   
 
         $book = Book::firstOrNew(
             ['title' =>  $item['title']],
@@ -59,11 +55,7 @@ class BooksImport implements OnEachRow, WithHeadingRow, SkipsEmptyRows
             
             $book->story_location()->associate($story_location);  
         }
-        
-
-        
-          
-        
+                
         $book->save();        
 
         $genres = explode(",", $item['genre']);

@@ -8,7 +8,7 @@ use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
 use App\Models\StoryLocation;
-use App\Imports\BooksImport;
+use App\Imports\Books;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -35,7 +35,7 @@ class Importbook extends Component
 
     public function import()
     {  
-        Excel::import(new BooksImport, $this->upload);
+        Excel::import(new Books, $this->upload);
         session()->flash('success', ' record successfully added');
         return redirect()->to('/book');
     }

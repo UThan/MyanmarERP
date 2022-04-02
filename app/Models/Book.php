@@ -44,6 +44,6 @@ class Book extends Model
 
     public function audiences()
     {
-        return $this->belongsToMany(Audience::class);
+        return $this->belongsToMany(Audience::class,'book_audience');
     }
 }
