@@ -38,12 +38,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('booklocation') }}" class="nav-link">
                         <i class="fas fa-globe-americas nav-icon"></i>
                         <p>Book Location</p>
                     </a>
-                </li>
+                </li> --}}
 
 
                 <li class="nav-header">
@@ -62,7 +62,7 @@
                         <p>Create</p>
                     </a>
                 </li>
-               
+
 
 
                 <li class="nav-header">
@@ -72,7 +72,7 @@
                     <a href="{{ route('member') }}" class="nav-link">
                         <i class="fas fa-users nav-icon"></i>
                         <p>All Members</p>
-                    </a>                  
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -105,18 +105,13 @@
                     Admin
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('booksetting') }}" class="nav-link">
-                        <i class="nav-icon fas fa-book-reader"></i>
-                        <p>Book Settings</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('locationsetting') }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-cog"></i>
-                        <p>Location Settings</p>
+                    <a href="{{ route('setting') }}" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>Setting</p>
                     </a>
                 </li>
                 
+
 
             </ul>
         </nav>

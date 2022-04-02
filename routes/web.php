@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Livewire\Admin\Addproperty;
+use App\Http\Livewire\Admin\Editproperty;
+use App\Http\Livewire\Admin\Selectproperties;
+use App\Http\Livewire\Admin\Setting;
+use App\Http\Livewire\Admin\Showproperty;
 use App\Http\Livewire\Book\AddBook;
 use App\Http\Livewire\Book\AllBook;
 use App\Http\Livewire\Book\BookLocation;
@@ -55,6 +60,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('manage/borrow', BorrowBook::class)->name('borrowbook');
     Route::get('manage/borrow/list', BorrowList::class)->name('borrowlist');
 
+    Route::get('admin/setting', Selectproperties::class)->name('setting');
+    Route::get('admin/setting/{property}', Showproperty::class)->name('property');
+    Route::get('admin/setting/{property}/add', Addproperty::class)->name('addproperty');
+    Route::get('admin/setting/{property}/edit/{id}', Editproperty::class)->name('editproperty');
   
 });
 
