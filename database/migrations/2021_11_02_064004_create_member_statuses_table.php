@@ -16,7 +16,6 @@ class CreateMemberStatusesTable extends Migration
         Schema::create('member_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 20);
-            $table->timestamps();
         });
     }
 

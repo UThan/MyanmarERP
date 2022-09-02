@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\ClassroomMember;
+use App\Models\BookStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ClassroomMemberFactory extends Factory
+class BookStatusFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ClassroomMember::class;
+    protected $model = BookStatus::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class ClassroomMemberFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
         ];
     }
 }

@@ -2,57 +2,52 @@
 
 namespace App\Http\Livewire\Member;
 
+use App\Helper\WithData;
+use App\Models\Institution;
 use App\Models\Member;
-use App\Models\Location;
 use App\Models\MemberStatus;
+use App\Models\Region;
 use Livewire\Component;
 
-class Editmember extends Component
+class EditMember extends Component
 {
-    public Member $member;  
-    public $main_location,$sub_locations;   
-    protected $listeners = ['editMember' => 'bindData']; 
+    use WithData;
+    public Member $member;
+
+    public $institutions, $regions, $memberstatus;
+
 
     public $rules = [
         "member.name" => 'required',
         "member.email" => 'required|email',
-        "member.phone_no" => 'required|numeric',
-        "member.member_status_id" => 'required',
-        "member.location_id" => ''
-    ];    
+        "member.phone_no" => 'required',  
+        "member.gender" => 'required',       
+        "member.institution_id" => '',  
+        "member.region_id" => '',  
+        "member.address_1" => '',  
+        "member.address_2" => '', 
+        "member.member_status_id" => 'required', 
+    ];
 
-    public function bindData($id)
-    {
-        $this->member = Member::find($id);
-        $this->reset(['main_location', 'sub_locations']);
-        if($this->member->location_id){
-            $this->main_location = $this->member->location->main_location_id;
-            $this->sub_locations = Location::where('main_location_id',$this->main_location)->get();
-        }
+    public function mount(Member $member){
+        $this->member = $member;
+        $this->institutions = Institution::all('id','name');
+        $this->regions = Region::all('id','name');
+        $this->memberstatus = MemberStatus::all('id','name');
     }
+
     
     public function submit()
     {
         $this->validate();
         $this->member->save();        
-        session()->flash('success', 'Updated successfully');
+        session()->flash('success', 'Member Infomation Updated');
         return redirect()->to('/member');
     }
 
     public function render()
-    {
-        $main_locations = Location::where('main_location_id','0')->get();;
-        $memberstatuses = MemberStatus::all('id', 'name');
-        return view('livewire.member.edit-member',compact('main_locations', 'memberstatuses'));
+    {       
+        return view('livewire.member.edit-member');
     }
-    
-    public function updatedMainLocation($id)
-    {
-            $this->sub_locations = Location::where('main_location_id',$id)->get();
-    }
-
-    public function updatedSubLocation($id)
-    {
-        $this->member->location_id =$id;
-    }
+   
 }

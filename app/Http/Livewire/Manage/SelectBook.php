@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Manage;
 
+use App\Helper\WithData;
 use App\Helper\WithModals;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Institution;
 use App\Models\Level;
 use App\Models\Location;
 use App\Models\StoryLocation;
@@ -13,23 +15,28 @@ use Livewire\Component;
 class SelectBook extends Component
 {
     use WithModals;
+    use WithData;
+
     public $search = [
         'category' => '',
+        'level' => '',
         'booklocation' => '',
         'storylocation' => '',
-        'level' => '',
         'book' => '',
     ];
 
-    public $select = [];
-    public $main_location,$sub_locations;
+    public $selectedbooks = [];
+    public $levels, $institutions, $storylocations;
+
+    public function mount()
+    {
+        $this->levels = Level::all('id','name');
+        $this->institutions = Institution::all('id','name');
+        $this->storylocations = StoryLocation::all('id','name');
+    }
 
     public function render()
     {
-        $main_locations = Location::where('main_location_id',0)->get();
-        $storylocations = StoryLocation::all('id', 'name');
-        $categories = Category::all('id', 'name');
-        $levels = Level::all('id', 'name');
         $books = Book::when($this->search['level'], function ($query) {
             $query->where('level_id', $this->search['level']);
         })->when($this->search['storylocation'], function ($query) {
@@ -37,25 +44,15 @@ class SelectBook extends Component
         })->when($this->search['booklocation'], function ($query) {
             $query->where('book_location_id', $this->search['booklocation']);            
         })->when($this->search['category'], function ($query) {
-            $query->where('category_id', $this->search['category']);
+            $query->where('category', $this->search['category']);
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
         })->take(5)->get();
-        return view('livewire.manage.select-book', compact('categories', 'main_locations', 'storylocations', 'levels', 'books'));
-    }
-
-    public function bookSelected()
+        return view('livewire.manage.select-book', compact('books'));
+    }    
+    
+    public function selectbook()
     {
-       $this->emit('bookSelected',$this->select);
-    }
-
-    public function clearMember()
-    {
-        $this->emit('clearMember');
-    }
-
-    public function updatedMainLocation($id)
-    {
-        $this->sub_locations = Location::where('main_location_id',$id)->get();
+        $this->emit('bookSelected', $this->selectedbooks);
     }
 }

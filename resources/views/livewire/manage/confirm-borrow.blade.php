@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($selectedbooks as $book)
+                        @foreach ($books as $book)
                         <tr>
                           <td>{{$book->book_no}}</td>
                           <td>{{$book->title}}</td>
@@ -47,13 +47,13 @@
                 </h4>
 
                 <dl class="row text-secondary">
-                    <dt class="col-sm-4"> <i class="fa fa-user" aria-hidden="true"></i> Name</dt>
+                    <dt class="col-sm-4"> <i class="fa fa-user mr-1" aria-hidden="true"></i> Name</dt>
                     <dd class="col-sm-8">{{$member->name}}</dd>
-                    <dt class="col-sm-4"><i class="fa fa-envelope" aria-hidden="true"></i> Email</dt>
+                    <dt class="col-sm-4"><i class="fa fa-envelope mr-1" aria-hidden="true"></i> Email</dt>
                     <dd class="col-sm-8">{{$member->email}}</dd>
-                    <dt class="col-sm-4"><i class="fa fa-phone" aria-hidden="true"></i> Phone No</dt>
+                    <dt class="col-sm-4"><i class="fa fa-phone mr-1" aria-hidden="true"></i> Phone No</dt>
                     <dd class="col-sm-8">{{$member->phone_no}}</dd>   
-                    <dt class="col-sm-4"><i class="fa fa-building" aria-hidden="true"></i> Classrooms</dt>  
+                    <dt class="col-sm-4"><i class="fa fa-building mr-1" aria-hidden="true"></i> Classrooms</dt>  
                     <dd class="col-sm-8">
                         @if ($member->location)
                             {{$member->location->name}}
@@ -65,13 +65,13 @@
 
                 <hr>
 
-            <button class="btn btn-block btn-primary" @if ($selectedbooks->count() < 1) disabled @endif wire:click='borrow'><i class="fas fa-book mr-2"></i>Borrow Books</button>
+            <button class="btn btn-block {{$books->count() < 1 ? 'btn-secondary' : 'btn-primary'}}" {{$books->count() < 1 ? 'disabled' : ''}} wire:click='borrow'><i class="fas fa-book mr-2"></i>Borrow Books</button>
             </div>
             
         </div>
        
     </div>
     <div class="card-footer">
-       <button class="btn btn-secondary" wire:click='back'>Back</button>
+       <button class="btn btn-secondary" wire:click="$emit('back')">Back</button>
     </div>
 </div>

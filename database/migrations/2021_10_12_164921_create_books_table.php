@@ -17,15 +17,18 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->integer('book_no');
             $table->string('title', 50);
-            $table->foreignId('category_id');
+            $table->enum('category',['lrs','crs']);
             $table->integer('copies_owned')->nullable();
             $table->integer('copies_left')->nullable();
             $table->integer('copies_lost')->nullable();
             $table->integer('pages')->nullable();
+            $table->string('author',50);
             $table->foreignId('level_id');
             $table->foreignId('story_location_id')->nullable();
             $table->foreignId('book_location_id')->nullable();
-            $table->foreignId('series_id');
+            $table->foreignId('series_id')->nullable();
+            $table->enum('main_character_gender',['male','female'])->nullable();   
+            $table->foreignId('book_status_id')->nullable();         
             $table->timestamps();
         });
     }

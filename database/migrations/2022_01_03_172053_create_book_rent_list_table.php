@@ -18,7 +18,7 @@ class CreateBookRentListTable extends Migration
             $table->foreignId('book_id')->constrained()->onDelete('cascade');            
             $table->date('return_date')->nullable();
             $table->foreignId('feedback_id')->nullable();
-            $table->foreignId('rent_status_id')->nullable();
+            $table->foreignId('rent_status_id')->default(1);
         });
     }
 

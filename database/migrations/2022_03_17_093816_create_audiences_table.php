@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFeedbackTable extends Migration
+class CreateAudiencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateFeedbackTable extends Migration
      */
     public function up()
     {
-        Schema::create('feedback', function (Blueprint $table) {
+        Schema::create('audiences', function (Blueprint $table) {
             $table->id();
-            $table->enum('satisfactory', [1, 2, 3]);  //like ok dontlike
-            $table->enum('difficulty', [1, 2, 3]);  //easy normal hard
-            $table->timestamps();
+            $table->string('name',20);
         });
     }
 
@@ -28,6 +26,6 @@ class CreateFeedbackTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedback');
+        Schema::dropIfExists('audiences');
     }
 }
