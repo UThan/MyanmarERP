@@ -1,5 +1,6 @@
 <?php
 
+use App\Helper\EnumArray;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,8 @@ class CreateFeedbacksTable extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->enum('satisfactory', ['like', 'ok', 'dislike']); 
-            $table->enum('difficulty', ['easy', 'normal', 'hard']);  
+            $table->enum('satisfactory', EnumArray::$satisfactory); 
+            $table->enum('difficulty', EnumArray::$difficulty);  
             $table->timestamps();
         });
     }

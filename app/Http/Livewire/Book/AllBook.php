@@ -33,7 +33,7 @@ class AllBook extends Component
         'level' => '',
         'book' => '',
         'genre' => '',
-        'showonly' => '10',
+        'maincharacter' => '',
     ];
 
     public function updatedSearch()
@@ -64,9 +64,11 @@ class AllBook extends Component
             $query->where('story_location_id', $this->search['story_location']);
         })->when($this->search['series'], function ($query) {
             $query->where('series_id', $this->search['series']);
+        })->when($this->search['maincharacter'], function ($query) {
+            $query->where('main_character_gender', $this->search['maincharacter']);
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
-        })->paginate($this->search['showonly']);
+        })->paginate('20');
         
         return view('livewire.book.all-book', compact('books'));
     }

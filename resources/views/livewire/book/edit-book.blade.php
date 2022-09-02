@@ -68,7 +68,7 @@
                                 placeholder="Select series name" />
                         </div>
                         <div class="col">
-                            <x-form.select :options='$gender' name="book.main_character_gender" label="Character's gender"
+                            <x-form.select :options='$maincharactergender' name="book.main_character_gender" label="Character's gender"
                                 placeholder="Select character's gender" />
                         </div>
                     </div>

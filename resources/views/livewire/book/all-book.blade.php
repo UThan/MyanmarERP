@@ -23,21 +23,22 @@
     <div class="card card-dark">
         <div class="card-header pt-4">
             <div class="row">                
+                             
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.series" placeholder="Series" :models="$series" />
+                    <x-form.select name="search.level" placeholder="Level" :models='$levels' />
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.genre" placeholder="Genres" :models="$genres" />
                 </div>
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.level" placeholder="Level" :models='$levels' />
+                    <x-form.select name="search.story_location" placeholder="Location" :models='$story_locations' />
+                </div>
+                <div class="col-lg-2 col-md-8 ">
+                    <x-form.select placeholder="Main Character" name="search.maincharacter" :options="$maincharactergender"  />
                 </div>
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.story_location" placeholder="Story Location" :models='$story_locations' />
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.showonly" :options='$record' />
-                </div>
+                    <x-form.select name="search.series" placeholder="Series" :models="$series" />
+                </div>   
                 <div class="col-lg-2 col-md-8 ">
                     <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search ..." />
                 </div>
@@ -49,10 +50,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Lvl</th>
                             <th>TITLE</th>
-                            <th>Story Location</th>
                             <th>Genre</th>
+                            <th>Location</th>
                             <th>Page</th>
                             <th>Author</th>
                             <th>Series</th>
@@ -65,15 +66,15 @@
                                 <td>{{ $book->level->name }}_{{ $book->book_no }}</td>                                
                                 <td>{{ $book->title }}</td>
                                 <td>
-                                    @if ($book->story_location)
-                                        {{$book->story_location->name }}
-                                    @endif
-                                </td>
-                                <td>
                                     @foreach ($book->genres as $genre)
                                         {{ $genre->name }}
                                     @endforeach
                                 </td>
+                                <td>
+                                    @if ($book->story_location)
+                                        {{$book->story_location->name }}
+                                    @endif
+                                </td>                                
                                 <td>{{ $book->pages }}</td>
                                 <td>
                                     {{ $book->author }}
