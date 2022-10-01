@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStoryLocationsTable extends Migration
+class CreateStoryRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateStoryLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('story_locations', function (Blueprint $table) {
+        Schema::create('story_regions', function (Blueprint $table) {            
             $table->id();
             $table->string('name', 20);
-            $table->foreignId('story_region_id')->nullable();
         });
     }
 
@@ -27,6 +26,6 @@ class CreateStoryLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('story_locations');
+        Schema::dropIfExists('story_regions');
     }
 }

@@ -10,7 +10,7 @@
     <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalImport">Import <i
             class="fa fa-file-import ml-2" aria-hidden="true"></i></a>
 
-    <a href="#" class="btn btn-secondary mb-2" wire:click.prevent='export'>Excel <i class="fa fa-download ml-2"
+    <a href="#" class="btn btn-secondary mb-2" wire:click.prevent='export'>Export to excel <i class="fa fa-download ml-2"
             aria-hidden="true"></i></a>
 
     
@@ -28,10 +28,10 @@
                     <x-form.select name="search.level" placeholder="Level" :models='$levels' />
                 </div>
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.genre" placeholder="Genres" :models="$genres" />
+                    <x-form.select name="search.genre" placeholder="Genre" :models="$genres" />
                 </div>
                 <div class="col-lg-2 col-md-4">
-                    <x-form.select name="search.story_location" placeholder="Location" :models='$story_locations' />
+                    <x-form.select name="search.story_region" placeholder="Location" :models='$story_regions' />
                 </div>
                 <div class="col-lg-2 col-md-8 ">
                     <x-form.select placeholder="Main Character" name="search.maincharacter" :options="$maincharactergender"  />
@@ -40,7 +40,7 @@
                     <x-form.select name="search.series" placeholder="Series" :models="$series" />
                 </div>   
                 <div class="col-lg-2 col-md-8 ">
-                    <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search ..." />
+                    <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search title" />
                 </div>
             </div>
         </div>
@@ -50,13 +50,15 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Lvl</th>
-                            <th>TITLE</th>
+                            <th>Level</th>
+                            <th>Title</th>
                             <th>Genre</th>
                             <th>Location</th>
                             <th>Page</th>
-                            <th>Author</th>
+                            <th>Main Character</th>
                             <th>Series</th>
+                            <th>Author</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -77,9 +79,16 @@
                                 </td>                                
                                 <td>{{ $book->pages }}</td>
                                 <td>
-                                    {{ $book->author }}
+                                    @if ($book->main_character_gender)
+                                     {{ $maincharactergender[$book->main_character_gender] }} 
+                                    @endif
                                 </td>
                                 <td> {{ $book->series->name}} </td>
+                                <td data-toggle="tooltip" data-placement="right" title="{{ $book->category == 'lrs' ? 'Libary Reader Series' : 'Compact Reader Series'}}"> {{ strtoupper($book->category)}} </td>
+                                <td>
+                                    {{ $book->author }}
+                                </td>
+                                
                                 
                                 
                                 <td>

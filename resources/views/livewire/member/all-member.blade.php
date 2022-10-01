@@ -20,11 +20,8 @@
                             </div>                   
                             <div class="col-md-2">
                                 <x-form.select name="search.member_status" placeholder="Member status" :models='$memberstatuses' />
-                            </div>
-                            <div class="col-md-2">
-                                <x-form.select name="search.showonly" :options='$record' />
-                            </div>
-                            <div class="col-lg-2 offset-lg-2 col-md-4 offset-md-0">
+                            </div>                            
+                            <div class="col-lg-2 offset-lg-4 col-md-4 offset-md-2">
                                 <x-form.input type='search' placeholder="Search" name="search.name" placeholder="Search ..." />
                             </div>
                         </div>

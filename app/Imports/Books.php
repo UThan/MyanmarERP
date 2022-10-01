@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Level;
 use App\Models\Series;
 use App\Models\StoryLocation;
+use App\Models\StoryRegion;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -14,6 +15,8 @@ use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
 class Books implements OnEachRow, WithHeadingRow, SkipsEmptyRows
 {
+
+    public $story_region;
     public function onRow(Row $row)
     {
 
@@ -49,13 +52,27 @@ class Books implements OnEachRow, WithHeadingRow, SkipsEmptyRows
         }
         
 
-        if($item['story_location']){
+        if($item['story_location']){      
+             
+            if($item['story_region']){
+                $this->story_region = StoryRegion::firstOrCreate([
+                    'name' => $item['story_region']
+                ]);
+            }else{
+                $this->story_region = StoryRegion::firstOrCreate([
+                    'name' => 'Other'
+                ]);
+            }
+            
+
             $story_location = StoryLocation::firstOrCreate([
-                'name' => $item['story_location']
+                'name' => $item['story_location'],
             ]);
+            $story_location->story_region()->associate($this->story_region)->save();            
             
             $book->story_location()->associate($story_location);  
         }
+      
 
         if($item['audience']){
             $level = Level::firstOrCreate([

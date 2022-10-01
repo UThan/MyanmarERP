@@ -13,6 +13,7 @@ use App\Models\Institution;
 use App\Models\StoryLocation;
 use App\Models\Level;
 use App\Models\Series;
+use App\Models\StoryRegion;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -25,11 +26,11 @@ class AllBook extends Component
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['onDelete'];
 
-    public $story_locations,$book_locations,$levels,$series,$genres;
+    public $story_regions,$book_locations,$levels,$series,$genres;
     
     public $search = [
         'series' => '',
-        'story_location' => '',
+        'story_region' => '',
         'level' => '',
         'book' => '',
         'genre' => '',
@@ -49,7 +50,7 @@ class AllBook extends Component
 
     public function export()
     {
-        return Excel::download(new Books, 'users.xlsx');
+        return Excel::download(new Books, 'Book List.xlsx');
     }
 
     public function render()
@@ -60,8 +61,8 @@ class AllBook extends Component
             });
         })->when($this->search['level'], function ($query) {
             $query->where('level_id', $this->search['level']);
-        })->when($this->search['story_location'], function ($query) {
-            $query->where('story_location_id', $this->search['story_location']);
+        })->when($this->search['story_region'], function ($query) {
+            $query->whereIn('story_location_id', StoryRegion::find($this->search['story_region'])->books->pluck('story_location_id'));
         })->when($this->search['series'], function ($query) {
             $query->where('series_id', $this->search['series']);
         })->when($this->search['maincharacter'], function ($query) {
@@ -74,7 +75,7 @@ class AllBook extends Component
     }
 
     public function mount(){
-        $this->story_locations = StoryLocation::all('id', 'name');
+        $this->story_regions = StoryRegion::all('id', 'name');
         $this->book_locations = Institution::all('id', 'name');  
         $this->levels = Level::all('id', 'name'); 
         $this->series = Series::all('id', 'name'); 

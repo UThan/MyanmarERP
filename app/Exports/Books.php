@@ -10,7 +10,7 @@ class Books implements FromCollection
     /**
     * @return \Illuminate\Support\Collection
     */
-    public $title = ['title','book_no','genre', 'level', 'author', 'category', 'pages', 'audience', 'main_character_gender', 'series', 'story_location', 'book_location',  'status','copies_owned','copies_left', 'copies_lost'];    
+    public $title = ['title','book_no','genre', 'level', 'author', 'category', 'pages', 'audience', 'main_character_gender', 'series', 'story_location', 'story_region', 'book_location',  'status','copies_owned','copies_left', 'copies_lost'];    
     public $exports;
     public function collection()
     {
@@ -42,6 +42,7 @@ class Books implements FromCollection
                 $book->main_character_gender,
                 $book->series ? $book->series->name : 'null',
                 $book->story_location ? $book->story_location->name : 'null',
+                $book->story_location->story_region ? $book->story_location->story_region->name : 'null',
                 $book->book_location ? $book->book_location->name : 'null',
                 $book->status ? $book->status->name : 'null',
             ]);           

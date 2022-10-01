@@ -35,8 +35,7 @@ class Editbook extends Component
         'book.book_status_id' => 'required',        
     ];
  
-    public function submit(){
-        $this->validate();        
+    public function submit(){  
         $this->book->save();
         session()->flash('success', 'Successfully Updated');
         return redirect()->to('/book');

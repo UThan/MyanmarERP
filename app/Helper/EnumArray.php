@@ -4,7 +4,7 @@ namespace App\Helper;
 
 class EnumArray
 {
-    public static $main_character_gender = ['man', 'woman', 'boy', 'girl', 'both m&w', 'both b&g'];
+    public static $main_character_gender = ['man', 'woman', 'boy', 'girl', 'man & woman', 'boy & girl'];   
 
     public static $category = ['lrs', 'crs'];
 

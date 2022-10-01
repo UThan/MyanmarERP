@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class Book extends Model
     protected $fillable = [
         'book_no', 'title', 'category', 'copies_left', 'copies_owned', 'copies_lost', 'pages', 'author', 'main_character_gender', 'status_id'
     ];
-
+ 
     public function genres()
     {
         return $this->belongsToMany(Genre::class);
@@ -36,7 +37,8 @@ class Book extends Model
     {
         return $this->belongsTo(Institution::class);
     }
-
+    
+    
     public function book_status()
     {
         return $this->belongsTo(BookStatus::class);

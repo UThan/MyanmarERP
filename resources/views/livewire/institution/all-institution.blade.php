@@ -14,11 +14,8 @@
                     </div>
                     <div class="col-lg-2 col-md-4">
                         <x-form.select name="search.institution_type" placeholder="Type" :models="$institution_types" />
-                    </div>
-                    <div class="col-lg-2 col-md-4">
-                        <x-form.select name="search.showonly" :options='$record' />
-                    </div>
-                    <div class="col-lg-3 col-md-8 offset-lg-3">
+                    </div>                    
+                    <div class="col-lg-3 col-md-8 offset-lg-5">
                         <x-form.input type='search' placeholder="Institution" name="search.institution" placeholder="Search ..." />
                     </div>
                 </div>
@@ -31,7 +28,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Region</th>
+                                <th>State/Division</th>
                                 <th>Institution Type</th>                           
                             </tr>
                         </thead>
