@@ -54,7 +54,7 @@
                             <th>Title</th>
                             <th>Genre</th>
                             <th>Location</th>
-                            <th>Page</th>
+                            <th>Pages</th>
                             <th>Main Character</th>
                             <th>Series</th>
                             <th>Author</th>
@@ -84,13 +84,11 @@
                                     @endif
                                 </td>
                                 <td> {{ $book->series->name}} </td>
-                                <td data-toggle="tooltip" data-placement="right" title="{{ $book->category == 'lrs' ? 'Libary Reader Series' : 'Compact Reader Series'}}"> {{ strtoupper($book->category)}} </td>
                                 <td>
                                     {{ $book->author }}
-                                </td>
-                                
-                                
-                                
+                                </td>                                         
+                                <td data-toggle="tooltip" data-placement="right" title="{{ $book->category == 'lrs' ? 'Libary Reader Series' : 'Compact Reader Series'}}"> {{ strtoupper($book->category)}} </td>
+                                                       
                                 <td>
                                     
                                     <a href="#" class="text-muted" data-toggle="dropdown">
