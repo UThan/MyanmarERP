@@ -4,7 +4,7 @@ namespace App\Helper;
 
 trait WithData
 {
-    public  $categories = ["lrs" => "LRS", "crs" => "CRS"];
+    public  $categories = ["lr" => "LR", "cr" => "CR"];
 
     public $gender = ["male" => "Male", "female" => "Female"];
 

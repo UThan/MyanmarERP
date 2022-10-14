@@ -51,7 +51,7 @@
                     <thead>
                         <tr>
                             <th>Level</th>
-                            <th>Title</th>
+                            <th style="width: 23%">Title</th>
                             <th>Genre</th>
                             <th>Location</th>
                             <th>Pages</th>
@@ -65,7 +65,7 @@
                     <tbody>
                         @foreach ($books as $book)
                             <tr>
-                                <td>{{ $book->level->name }}_{{ $book->book_no }}</td>                                
+                                <td>{{ $book->level->name }}_{{ strtoupper($book->category) }}{{ $book->book_no }}</td>                                
                                 <td>{{ $book->title }}</td>
                                 <td>
                                     @foreach ($book->genres as $genre)
@@ -87,7 +87,7 @@
                                 <td>
                                     {{ $book->author }}
                                 </td>                                         
-                                <td data-toggle="tooltip" data-placement="right" title="{{ $book->category == 'lrs' ? 'Libary Reader Series' : 'Compact Reader Series'}}"> {{ strtoupper($book->category)}} </td>
+                                <td data-toggle="tooltip" data-placement="right" title="{{ $book->category == 'lr' ? 'Libary Reader Series' : 'Class Reader Series'}}"> {{ strtoupper($book->category)}} </td>
                                                        
                                 <td>
                                     
