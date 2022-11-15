@@ -35,6 +35,7 @@ class AllBook extends Component
         'book' => '',
         'genre' => '',
         'maincharacter' => '',
+        'category' => '',
     ];
 
     public function updatedSearch()
@@ -67,6 +68,8 @@ class AllBook extends Component
             $query->where('series_id', $this->search['series']);
         })->when($this->search['maincharacter'], function ($query) {
             $query->where('main_character_gender', $this->search['maincharacter']);
+        })->when($this->search['category'], function ($query) {
+            $query->where('category', $this->search['category']);
         })->when($this->search['book'], function ($query) {
             $query->where('title', 'like', '%' . $this->search['book'] . '%');
         })->paginate('20');

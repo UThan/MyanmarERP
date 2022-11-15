@@ -42,7 +42,7 @@ class Books implements FromCollection
                 $book->main_character_gender,
                 $book->series ? $book->series->name : 'null',
                 $book->story_location ? $book->story_location->name : 'null',
-                $book->story_location->story_region ? $book->story_location->story_region->name : 'null',
+                $book->story_location ? $book->story_location->story_region->name : 'null',
                 $book->book_location ? $book->book_location->name : 'null',
                 $book->status ? $book->status->name : 'null',
             ]);           

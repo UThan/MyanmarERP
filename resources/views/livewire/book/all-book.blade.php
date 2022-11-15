@@ -4,26 +4,35 @@
 
 <div >
     <x-alert />
-    <a href="{{route('addbook')}}" class="btn btn-primary mb-2">New <i
-        class="fa fa-plus ml-2" aria-hidden="true"></i></a>
+    <div class="row">
+        <div class="col-lg-4 col-md-8 ">
+            <a href="{{route('addbook')}}" class="btn btn-primary mb-2">New <i
+                class="fa fa-plus ml-2" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalImport">Import <i
+                class="fa fa-file-import ml-2" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-secondary mb-2" wire:click.prevent='export'>Export to excel <i class="fa fa-download ml-2"
+                aria-hidden="true"></i></a>
+        </div>       
 
-    <a href="#" class="btn btn-success mb-2" data-toggle="modal" data-target="#modalImport">Import <i
-            class="fa fa-file-import ml-2" aria-hidden="true"></i></a>
-
-    <a href="#" class="btn btn-secondary mb-2" wire:click.prevent='export'>Export to excel <i class="fa fa-download ml-2"
-            aria-hidden="true"></i></a>
+        <div class="offset-lg-6 col-lg-2 col-md-8 ">
+                <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search title" />
+        </div> 
+    </div>
 
     
 
+    
     <x-modal id="modalImport">
         @livewire('importbook')
     </x-modal>
+
+    
+    
    
 
     <div class="card card-dark">
         <div class="card-header pt-4">
-            <div class="row">                
-                             
+            <div class="row"> 
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.level" placeholder="Level" :models='$levels' />
                 </div>
@@ -39,9 +48,9 @@
                 <div class="col-lg-2 col-md-4">
                     <x-form.select name="search.series" placeholder="Series" :models="$series" />
                 </div>   
-                <div class="col-lg-2 col-md-8 ">
-                    <x-form.input type='search' placeholder="Book title" name="search.book" placeholder="Search title" />
-                </div>
+                <div class="col-lg-2 col-md-4">
+                    <x-form.select name="search.category" placeholder="Category" :options="$categories" />
+                </div>                  
             </div>
         </div>
         <!-- /.card-header -->
@@ -65,7 +74,7 @@
                     <tbody>
                         @foreach ($books as $book)
                             <tr>
-                                <td>{{ $book->level->name }}_{{ strtoupper($book->category) }}{{ $book->book_no }}</td>                                
+                                <td>{{ $book->level->name }}_{{ $book->category == 'cr' ? strtoupper($book->category) : ''}}{{ $book->book_no }}</td>                                
                                 <td>{{ $book->title }}</td>
                                 <td>
                                     @foreach ($book->genres as $genre)

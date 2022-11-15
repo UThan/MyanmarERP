@@ -1,5 +1,5 @@
 <x-slot name="title">
-    <x-admin-title title='All Institutions' :dirs="['home' => 'home', 'institution' => 'institution']" />
+    <x-admin-title title='All Institutions' :dirs="['home' => 'home', 'institutions' => 'institution']" />
 </x-slot>
 
 <div class="row">

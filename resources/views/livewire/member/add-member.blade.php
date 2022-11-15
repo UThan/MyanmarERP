@@ -17,8 +17,8 @@
                     <hr>  
                     <x-form.select :models='$institutions' name="member.institution_id" label="Institution" placeholder="Select institution" inline='9' />
                     <x-form.select :models='$regions' name="member.region_id" label="Region" placeholder="Select region" inline='9' />
-                    <x-form.input name='member.address_1' label='Address' placeholder="Address Line 1" inline='9'/>
-                    <x-form.input name='member.address_2' label='Address' placeholder="Address Line 2" inline='9'/>
+                    <!-- <x-form.input name='member.address_1' label='Address' placeholder="Address Line 1" inline='9'/>
+                    <x-form.input name='member.address_2' label='Address' placeholder="Address Line 2" inline='9'/> -->
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Create</button>

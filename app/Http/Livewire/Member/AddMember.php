@@ -23,8 +23,8 @@ class Addmember extends Component
         "member.gender" => 'required',       
         "member.institution_id" => 'required',  
         "member.region_id" => 'required',  
-        "member.address_1" => 'required',  
-        "member.address_2" => 'required', 
+        // "member.address_1" => 'required',  
+        // "member.address_2" => 'required', 
     ];
 
     public function mount(){
