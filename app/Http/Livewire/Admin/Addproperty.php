@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Addproperty extends Component
 {
-    public $title , $name, $classname, $model;
+    public $title , $name, $classname, $model, $description;
 
     public $rules = [
         'model.name' => 'required'
@@ -17,6 +17,9 @@ class Addproperty extends Component
         $this->classname = $prefix.$property;  
         $this->title = $property;
         $this->model = new $this->classname;
+        if($this->title == 'Series'){
+            $this->rules['model.description'] = 'required';
+        }
     }
 
     public function render()

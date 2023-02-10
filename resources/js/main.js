@@ -8,6 +8,10 @@ window.addEventListener("onModalClose", (e) => {
     $(e.detail.name).modal("hide");
 });
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
 window.addEventListener("confirmDelete", (e) => {
     Swal.fire({
         text: "Do you want to delete?",

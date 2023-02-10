@@ -14,7 +14,10 @@
                     </h4 >
                 </div>            
                 <div class="card-body">
-                    <x-form.input name='model.name' label='Name' placeholder="Enter {{$title}} name" inline='10'/>                    
+                    <x-form.input name='model.name' label='Name' placeholder="Enter {{$title}} name" inline='10'/>   
+                    @if ($title == 'Series')                
+                    <x-form.input name='model.description' label='Description' placeholder="Enter {{$title}} description" inline='10'/>                              
+                    @endif                  
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary float-right">Create</button>

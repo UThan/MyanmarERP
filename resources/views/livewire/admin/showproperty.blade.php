@@ -20,6 +20,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                    @if ($title == 'Series')
+                                    <th>Description</th>
+                                    @endif
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -28,6 +31,9 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $model->name }}</td>
+                                        @if ($title == 'Series')                                        
+                                        <td>{{ $model->description }}</td>
+                                        @endif
                                     <td style="width: 10%">
                                         <a href="#" class="text-muted" data-toggle="dropdown">
                                             <span class="sr-only">Toggle Dropdown</span><i

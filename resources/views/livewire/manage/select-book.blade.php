@@ -26,8 +26,8 @@
                         <th>#</th>
                         <th style="width: 20%">Title</th>
                         <th>Author</th>
+                        <th>Book Location</th>
                         <th>Genre</th>
-                        <th>Audience</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,13 +38,11 @@
                             <td>{{ $book->title }}</td>
                             <td>{{ $book->author }}</td>
                             <td>
-                                {{ $book->story_location ? $book->story_location->name : 'unknown' }}
+                                {{ $book->book_location ? $book->book_location->name : 'Unknown' }}
                             </td>
 
                             <td>
-                                @foreach ($book->genres as $genre)
-                                    {{ $genre->name }}
-                                @endforeach
+                                {{ $book->genre ? $book->genre->name : 'Unknown' }}
                             </td>
 
                             <td style="width: 4rem; padding: 5px">

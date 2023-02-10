@@ -9,8 +9,11 @@ class Audience extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'name'
+    ];
     
     public function Books(){
-        return $this->belongsToMany(Book::class);
+        return $this->belongsTo(Book::class);
     }
 }

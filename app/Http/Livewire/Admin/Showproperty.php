@@ -22,7 +22,7 @@ class Showproperty extends Component
 
     public function render()
     {
-        $models = $this->classname::select('id','name')->paginate(5);
+        $models = $this->classname::paginate(5);
         return view('livewire.admin.showproperty',compact('models'));
     }
 

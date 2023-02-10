@@ -19,17 +19,16 @@ class CreateBooksTable extends Migration
             $table->integer('book_no');
             $table->string('title', 50);
             $table->enum('category',EnumArray::$category);
-            $table->integer('copies_owned')->nullable();
-            $table->integer('copies_left')->nullable();
-            $table->integer('copies_lost')->nullable();
             $table->integer('pages')->nullable();
             $table->string('author',50);
             $table->foreignId('level_id');
             $table->foreignId('story_location_id')->nullable();
             $table->foreignId('book_location_id')->nullable();
             $table->foreignId('series_id')->nullable();
-            $table->enum('main_character_gender',EnumArray::$main_character_gender)->nullable();   
-            $table->foreignId('book_status_id')->nullable();         
+            $table->foreignId('main_character_id')->nullable();   
+            $table->foreignId('book_status_id')->nullable();   
+            $table->foreignId('genre_id')->nullable();   
+            $table->foreignId('audience_id')->nullable();        
             $table->timestamps();
         });
     }

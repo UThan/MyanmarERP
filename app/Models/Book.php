@@ -10,12 +10,12 @@ class Book extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'book_no', 'title', 'category', 'copies_left', 'copies_owned', 'copies_lost', 'pages', 'author', 'main_character_gender', 'status_id'
+        'book_no', 'title', 'category', 'pages', 'author', 'main_character', 'book_status'
     ];
  
-    public function genres()
+    public function genre()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsTo(Genre::class);
     }
 
     public function level()
@@ -33,6 +33,11 @@ class Book extends Model
         return $this->belongsTo(Series::class);
     }
 
+    public function main_character()
+    {
+        return $this->belongsTo(MainCharacter::class);
+    }
+
     public function book_location()
     {
         return $this->belongsTo(Institution::class);
@@ -44,8 +49,8 @@ class Book extends Model
         return $this->belongsTo(BookStatus::class);
     }
 
-    public function audiences()
+    public function audience()
     {
-        return $this->belongsToMany(Audience::class,'book_audience');
+        return $this->belongsTo(Audience::class);
     }
 }

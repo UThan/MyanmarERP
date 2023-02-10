@@ -6,17 +6,23 @@ use Livewire\Component;
 
 class Editproperty extends Component
 {
-    public $title , $name, $classname, $model;
+    public $title , $name, $classname, $model, $description;
 
     public $rules = [
-        'model.name' => 'required'
+        'model.name' => 'required',
     ];
+
+    
 
     public function mount($property,$id){
         $prefix = "App\\Models\\" ; 
         $this->classname = $prefix.$property;  
         $this->title = $property;
         $this->model = $this->classname::find($id);
+
+        if($this->title == 'Series'){
+            $this->rules['model.description'] = 'required';
+        }
     }
 
     public function render()
@@ -25,8 +31,9 @@ class Editproperty extends Component
     }
 
     public function submit(){
-        $this->validate();     
+        $this->validate();         
         $this->model->save(); 
+        
         session()->flash('success', 'Successfully Updated');
         return redirect()->route('property', $this->title); 
     }

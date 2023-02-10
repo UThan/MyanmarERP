@@ -11,6 +11,7 @@ use App\Models\Audience;
 use App\Models\BookStatus;
 use App\Models\Institution;
 use App\Models\StoryLocation;
+use App\Models\MainCharacter;
 use Livewire\Component;
 
 class AddBook extends Component
@@ -19,8 +20,7 @@ class AddBook extends Component
     public $title = 'Addbook';
 
     public Book $book;
-    public $genre_id,$audience_id;  //Multiple ids
-    public $series,$levels,$story_locations, $book_locations, $book_status, $genres, $audiences;
+    public $series,$levels,$story_locations, $book_locations, $book_status, $genres, $audiences, $main_characters;
 
     public $rules = [
         'book.book_no' => 'required|integer|min:1',
@@ -30,17 +30,17 @@ class AddBook extends Component
         'book.author' => 'required',        
         'book.level_id' => 'required',
         'book.story_location_id' => 'required',
-        'book.book_location_id' => 'required',
+        'book.book_location_id' => '',
         'book.series_id' => 'required',
-        'book.main_character_gender' => 'required',
-        'book.book_status_id' => 'required',        
+        'book.main_character_id' => 'required',
+        'book.book_status_id' => 'required',    
+        'book.genre_id' => 'required',   
+        'book.audience_id' => 'required',       
     ];
  
     public function submit(){
         $this->validate();       
         $this->book->save();
-        $this->book->genres()->sync($this->genre_id);
-        $this->book->genres()->sync($this->audience_id);
         session()->flash('success', 'Successfully Added');
         return redirect()->to('/book');
        
@@ -60,7 +60,8 @@ class AddBook extends Component
         $this->audiences = Audience::all('id', 'name');
         $this->status = BookStatus::all('id', 'name');
         $this->story_locations = StoryLocation::all('id', 'name'); 
-        $this->book_locations = Institution::all('id', 'name');
+        $this->book_locations = Institution::all('id', 'name');        
+        $this->main_characters = MainCharacter::all('id', 'name');
     }
 
 }

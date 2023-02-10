@@ -10,7 +10,7 @@ class Books implements FromCollection
     /**
     * @return \Illuminate\Support\Collection
     */
-    public $title = ['title','book_no','genre', 'level', 'author', 'category', 'pages', 'audience', 'main_character_gender', 'series', 'story_location', 'story_region', 'book_location',  'status','copies_owned','copies_left', 'copies_lost'];    
+    public $title = ['Book No','Level','Title', 'Genre', 'Location', 'Main Character', 'Pages', 'Author', 'Series', 'Category', 'Book Location', 'Audience', 'Book Status'];    
     public $exports;
     public function collection()
     {
@@ -18,33 +18,22 @@ class Books implements FromCollection
         $this->exports = collect();
         $this->exports->push($this->title);
         $books->each(function($book){
-
-            $genres = ''; $audiences = '';
-           
-            foreach($book->genres as $genre){
-                $genres .= $genre->name;                
-            }
-
-            foreach($book->audiences as $audience){
-                $audiences .= $audience->name;                
-            }
-          
-            
+                               
             $this->exports->push( [
-                $book->title,
+                
                 $book->book_no,
-                $genres,
-                $book->level->name,
-                $book->author,
-                $book->category,
-                $book->pages,
-                $audiences,
-                $book->main_character_gender,
-                $book->series ? $book->series->name : 'null',
-                $book->story_location ? $book->story_location->name : 'null',
-                $book->story_location ? $book->story_location->story_region->name : 'null',
-                $book->book_location ? $book->book_location->name : 'null',
-                $book->status ? $book->status->name : 'null',
+                $book->level->name ? $book->level->name : 'Unknown',
+                $book->title? $book->title : 'Unknown',
+                $book->genre? $book->genre->name : 'Unknown',
+                $book->story_location? $book->story_location->name : 'Unknown',
+                $book->main_character? $book->main_character->name : 'Unknown',                
+                $book->pages? $book->pages : 'Unknown',
+                $book->author? $book->author : 'Unknown',
+                $book->series? $book->series->name : 'Unknown',
+                $book->category? $book->category : 'Unknown',
+                $book->book_location ? $book->book_location->name : 'Unknown',
+                $book->audience ? $book->audience->name : 'Unknown',
+                $book->book_status ? $book->book_status->name : 'Unknown',
             ]);           
         });
         return $this->exports;

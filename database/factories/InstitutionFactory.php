@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Member;
+use App\Models\Institution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class MemberFactory extends Factory
+class InstitutionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Member::class;
+    protected $model = Institution::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,9 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'gender' => array_rand(['male','female']),
-            'email' => $this->faker->safeEmail(),
-            'phone_no' => $this->faker->phoneNumber(),
-            'member_status_id' => 1,
+            'name' => $this->faker->name(),            
+            'institution_type_id' => 1,
+            'region_id' => 1,
         ];
     }
 }

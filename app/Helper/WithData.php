@@ -6,9 +6,7 @@ trait WithData
 {
     public  $categories = ["lr" => "LR", "cr" => "CR"];
 
-    public $gender = ["male" => "Male", "female" => "Female"];
-
-    public $maincharactergender = ['man' => "Man",'woman' => "Woman", 'boy' => "Boy", 'girl' => "Girl", 'both m&w' => "Man & Woman", 'both b&g' => "Boy & Girl"];
+    public $gender = ["male" => "Male", "female" => "Female"];    
 
     public $rentduration = 14;
 

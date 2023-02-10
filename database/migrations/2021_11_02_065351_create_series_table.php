@@ -16,6 +16,7 @@ class CreateSeriesTable extends Migration
         Schema::create('series', function (Blueprint $table) {
             $table->id();
             $table->string('name', 20);
+            $table->string('description', 50);
         });
     }
 

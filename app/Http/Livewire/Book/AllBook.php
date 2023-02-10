@@ -26,15 +26,15 @@ class AllBook extends Component
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['onDelete'];
 
-    public $story_regions,$book_locations,$levels,$series,$genres;
+    public $story_locations,$book_locations,$levels,$series,$genres,$main_characters;
     
     public $search = [
         'series' => '',
-        'story_region' => '',
+        'story_location' => '',
         'level' => '',
         'book' => '',
         'genre' => '',
-        'maincharacter' => '',
+        'main_character' => '',
         'category' => '',
     ];
 
@@ -62,12 +62,12 @@ class AllBook extends Component
             });
         })->when($this->search['level'], function ($query) {
             $query->where('level_id', $this->search['level']);
-        })->when($this->search['story_region'], function ($query) {
-            $query->whereIn('story_location_id', StoryRegion::find($this->search['story_region'])->books->pluck('story_location_id'));
+        })->when($this->search['story_location'], function ($query) {
+            $query->where('story_location_id', $this->search['story_location']);
         })->when($this->search['series'], function ($query) {
             $query->where('series_id', $this->search['series']);
-        })->when($this->search['maincharacter'], function ($query) {
-            $query->where('main_character_gender', $this->search['maincharacter']);
+        })->when($this->search['main_character'], function ($query) {
+            $query->where('main_character_id', $this->search['main_character']);
         })->when($this->search['category'], function ($query) {
             $query->where('category', $this->search['category']);
         })->when($this->search['book'], function ($query) {
@@ -78,7 +78,7 @@ class AllBook extends Component
     }
 
     public function mount(){
-        $this->story_regions = StoryRegion::all('id', 'name');
+        $this->story_locations = StoryLocation::all('id', 'name');
         $this->book_locations = Institution::all('id', 'name');  
         $this->levels = Level::all('id', 'name'); 
         $this->series = Series::all('id', 'name'); 

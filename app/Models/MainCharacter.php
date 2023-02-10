@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Genre extends Model
+class MainCharacter extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
+    
     protected $fillable = [
         'name'
     ];
 
-    public function books()
-    {
-        return $this->belongsTo(Book::class);
+    public function Books(){
+        return $this->belongsToMany(Book::class);
     }
+
 }
